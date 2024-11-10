@@ -10,13 +10,13 @@
       <!--       @click="save()" -->
       <div class="item">
         <el-tooltip content="保存" placement="top">
-          <cl-svg name="save2" />
+          <my-svg name="save2" />
         </el-tooltip>
       </div>
       <!--      @click="run()"-->
       <div class="item">
         <el-tooltip content="运行" placement="top">
-          <cl-svg name="run2" />
+          <my-svg name="run2" />
         </el-tooltip>
       </div>
     </div>

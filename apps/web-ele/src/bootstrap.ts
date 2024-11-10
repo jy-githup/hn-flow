@@ -8,6 +8,7 @@ import '@vben/styles/ele';
 
 import { useTitle } from '@vueuse/core';
 
+import mySvg from '#/components/icon/svg.vue';
 import { $t, setupI18n } from '#/locales';
 
 import { initComponentAdapter } from './adapter/component';
@@ -40,6 +41,8 @@ async function bootstrap(namespace: string) {
       useTitle(pageTitle);
     }
   });
+
+  app.component('my-svg', mySvg);
 
   app.mount('#app');
 }
