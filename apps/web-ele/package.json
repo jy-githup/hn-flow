@@ -45,7 +45,12 @@
     "element-plus": "catalog:",
     "pinia": "catalog:",
     "vue": "catalog:",
-    "vue-router": "catalog:"
+    "vue-router": "catalog:",
+    "@vue-flow/background": "^1.3.0",
+    "@vue-flow/controls": "^1.1.2",
+    "@vue-flow/core": "^1.36.0",
+    "@vue-flow/minimap": "^1.5.0",
+    "@vue-flow/node-resizer": "^1.3.6"
   },
   "devDependencies": {
     "unplugin-element-plus": "catalog:"

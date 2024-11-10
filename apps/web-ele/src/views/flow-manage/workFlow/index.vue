@@ -1,5 +1,9 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import myFlow from '#/views/flow-manage/components/myFlow/index.vue';
+</script>
 
-<template>测试</template>
+<template>
+  <myFlow />
+</template>
 
 <style lang="scss" scoped></style>
