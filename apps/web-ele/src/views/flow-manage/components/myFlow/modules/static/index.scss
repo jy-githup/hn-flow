@@ -1,0 +1,36 @@
+.el-popper {
+  &.cl-flow__popper {
+    border-radius: 8px;
+
+    .el-popper__arrow {
+      display: none;
+    }
+
+    .el-scrollbar__view {
+      padding: 0;
+    }
+
+    .el-select-dropdown__item {
+      height: 30px;
+      font-size: 12px;
+      line-height: 30px;
+      border-radius: 6px;
+    }
+
+    &.el-select__popper {
+      margin: -7px 0;
+
+      .el-select-dropdown__wrap {
+        padding: 5px;
+      }
+    }
+
+    &:not(.el-select__popper) {
+      padding: 5px;
+    }
+
+    &.not-padding {
+      padding: 0;
+    }
+  }
+}

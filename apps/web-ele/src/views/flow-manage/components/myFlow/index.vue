@@ -3,6 +3,8 @@ import { Background } from '@vue-flow/background';
 import { VueFlow } from '@vue-flow/core';
 import { MiniMap } from '@vue-flow/minimap';
 
+import headerFlow from '#/views/flow-manage/components/myFlow/modules/headerFlow/index.vue';
+
 import '@vue-flow/core/dist/style.css';
 import '@vue-flow/core/dist/theme-default.css';
 import '@vue-flow/controls/dist/style.css';
@@ -13,6 +15,9 @@ import '@vue-flow/node-resizer/dist/style.css';
 <template>
   <view class="myFlowBox">
     <VueFlow :default-viewport="{ zoom: 1.0 }" :max-zoom="2" :min-zoom="0.25">
+      <!-- 自定义顶部栏 -->
+      <headerFlow />
+
       <!-- 背景 -->
       <Background :gap="16" pattern-color="#aaa" />
 

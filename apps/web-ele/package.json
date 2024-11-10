@@ -50,9 +50,11 @@
     "@vue-flow/controls": "^1.1.2",
     "@vue-flow/core": "^1.36.0",
     "@vue-flow/minimap": "^1.5.0",
-    "@vue-flow/node-resizer": "^1.3.6"
+    "@vue-flow/node-resizer": "^1.3.6",
+    "lodash-es": "^4.17.21"
   },
   "devDependencies": {
-    "unplugin-element-plus": "catalog:"
+    "unplugin-element-plus": "catalog:",
+    "@types/lodash-es": "^4.17.8"
   }
 }
