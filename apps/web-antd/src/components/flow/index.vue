@@ -3,6 +3,9 @@ import { Background } from '@vue-flow/background';
 import { VueFlow } from '@vue-flow/core';
 import { MiniMap } from '@vue-flow/minimap';
 
+import FlowHeader from '#/components/flowHeader/index.vue';
+import FlowNodeAdd from '#/components/flowNodeAdd/index.vue';
+
 // import ToolsCard from './tools/card.vue';
 // import ToolsContextMenu from './tools/context-menu.vue';
 // import ToolsControls from './tools/controls.vue';
@@ -43,7 +46,7 @@ const onPaneClick = () => {
       @pane-click="onPaneClick"
     >
       <!-- 自定义顶部栏 -->
-      <ToolsHead />
+      <FlowHeader />
 
       <!-- 自定义选择框 -->
       <!-- <ToolsSelection /> -->
@@ -52,7 +55,7 @@ const onPaneClick = () => {
       <!-- <ToolsPanel /> -->
 
       <!-- 自定义节点添加面板 -->
-      <ToolsNodeAdd />
+      <FlowNodeAdd />
 
       <!-- 自定义右键菜单 -->
       <!-- <ToolsContextMenu :ref="setRefs('contextMenu')" /> -->
