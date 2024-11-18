@@ -32,8 +32,7 @@ const drag: any = reactive({
 });
 
 function mousedown(e: MouseEvent, node: FlowNode) {
-  const el = document.querySelector(`cl-flow__tools-node-add--${node.type}`);
-
+  const el = document.querySelector(`#cl-flow__tools-node-add--${node.type}`);
   if (el) {
     const elRect = el.getBoundingClientRect();
     const wRect = document
