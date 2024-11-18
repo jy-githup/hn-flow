@@ -83,7 +83,6 @@ catalog:
   depcheck: ^1.4.7
   dotenv: ^16.4.5
   echarts: ^5.5.1
-  element-plus: ^2.8.7
   eslint: ^9.14.0
   eslint-config-turbo: ^2.2.3
   eslint-plugin-command: ^0.2.6
@@ -116,7 +115,6 @@ catalog:
   lodash.get: ^4.4.2
   lucide-vue-next: ^0.456.0
   medium-zoom: ^1.1.0
-  naive-ui: ^2.40.1
   nitropack: ^2.10.4
   nprogress: ^0.2.0
   ora: ^8.1.1
