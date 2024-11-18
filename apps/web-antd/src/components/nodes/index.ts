@@ -13,9 +13,9 @@ const CustomNodes = shallowRef<FlowNode[]>([]);
 for (const i in files) {
   const [, type] = i.split('/');
 
-  const d = files[i].default();
+  const d = files[i]?.default();
 
-  if (d.enable !== false) {
+  if (d && d.enable !== false) {
     const configWidth = d.form?.width || '400px';
     const width = `${Number.parseFloat(configWidth) + 30}px`;
 

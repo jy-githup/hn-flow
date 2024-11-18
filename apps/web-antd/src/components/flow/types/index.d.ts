@@ -1,6 +1,6 @@
 import { CSSProperties } from 'vue';
 
-declare type FlowField = {
+export declare type FlowField = {
   [key: string]: any;
   field: string; // 自定义命名
   label?: string; // 显示名称
