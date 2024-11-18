@@ -46,7 +46,7 @@ declare interface FlowNode {
   [key: string]: any;
 }
 
-declare interface FlowEdge {
+export declare interface FlowEdge {
   id: string;
   type?: string;
   target: string;
