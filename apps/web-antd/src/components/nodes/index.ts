@@ -1,4 +1,4 @@
-import type { FlowNode } from '#/components/flow/types/index';
+import type { FlowNode } from '#/types/flow';
 
 import { shallowRef } from 'vue';
 
@@ -23,7 +23,6 @@ for (const i in files) {
       ...d,
       type,
       name: `node-${type}`,
-      icon: type,
       cardWidth: width,
     });
   }

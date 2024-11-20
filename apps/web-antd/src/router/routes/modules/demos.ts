@@ -29,7 +29,28 @@ const routes: RouteRecordRaw[] = [
         },
         name: 'AntFlow',
         path: '/demos/ant-flow',
-        component: () => import('#/views/demos/antd/antFlow.vue'),
+        // component: () => import('#/views/demos/antd/antFlow.vue'),
+        redirect: '/demos/ant-flow/FlowManage/FlowList',
+        children: [
+          {
+            meta: {
+              title: '流程列表',
+              hideInMenu: true,
+            },
+            name: 'FlowManage/FlowList',
+            path: 'FlowManage/FlowList',
+            component: () => import('#/views/demos/antd/antFlow.vue'),
+          },
+          {
+            meta: {
+              title: '流程详情',
+              hideInMenu: true,
+            },
+            name: 'FlowManage/FlowInfo',
+            path: 'FlowManage/FlowInfo',
+            component: () => import('#/views/demos/antd/flowInfo.vue'),
+          },
+        ],
       },
     ],
   },

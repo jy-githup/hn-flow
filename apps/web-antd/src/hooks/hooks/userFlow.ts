@@ -1,12 +1,10 @@
 import type { Connection } from '@vue-flow/core';
 
-import type {
-  FlowEdge,
-  FlowField,
-  FlowNode,
-} from '#/components/flow/types/index.d.ts';
+import type { FlowEdge, FlowField, FlowNode } from '#/types/flow';
 
-import { computed, ref } from 'vue';
+import { computed, ref, shallowRef } from 'vue';
+
+import { MaterialGridOnSharp } from '@vben/icons';
 
 import { useVueFlow } from '@vue-flow/core';
 import {
@@ -55,11 +53,12 @@ export const useFlow = () => {
     const edges = computed(() => vueFlow.edges.value as FlowEdge[]);
 
     // 当前选中的节点
-    const node = ref<FlowNode>();
+    const node = shallowRef<FlowNode>();
 
     // 选中节点
     function setNode(data: any) {
       node.value = data;
+
       mitt.emit('flow.setNode', node.value);
     }
 
@@ -75,7 +74,6 @@ export const useFlow = () => {
     // 添加节点
     function addNode(type: string, options?: FlowNode) {
       const item = CustomNodes.value.find((e) => e.type === type);
-
       const data = {
         type,
         data: {
@@ -274,7 +272,6 @@ export const useFlow = () => {
     // 添加边线
     function addEdge(connection: Connection) {
       const list = hasEdge(connection);
-
       if (!isEmpty(list)) {
         removeEdges(list);
       }
@@ -376,7 +373,7 @@ export const useFlow = () => {
     }
 
     // 复制节点
-    const copyData = ref<FlowNode>();
+    const copyData = shallowRef<FlowNode>();
     function setCopyNode(node: any) {
       copyData.value = cloneDeep(node);
     }
@@ -590,37 +587,64 @@ export const useFlow = () => {
     // 获取
     async function get(flowId?: number) {
       await req;
-      return () => {
-        if (flowId) {
-          // console.log('flowId>>>>>', flowId);
-        }
-        const res: any = {};
-        // 还原节点
-        restore(res.draft);
-
-        // 开始节点
-        if (isEmpty(nodes.value)) {
-          def();
-        }
+      const res: any = {
+        flowId,
+        id: 9,
+        createTime: '2024-11-19 15:59:00',
+        updateTime: '2024-11-19 17:48:14',
+        name: '测试新增',
+        label: '1',
+        description: null,
+        status: 1,
+        version: 1,
+        draft: {
+          nodes: [
+            {
+              enable: null,
+              id: '1',
+              label: '开始',
+              type: 'start',
+              icon: 'start',
+              name: 'node-start',
+              position: {
+                x: 100,
+                y: 100,
+              },
+              form: null,
+              handle: {
+                target: false,
+                source: null,
+                next: [],
+              },
+              data: {
+                inputParams: [
+                  {
+                    nodeId: '1',
+                    name: 'content',
+                    nodeType: 'start',
+                    field: 'content',
+                    type: 'text',
+                    required: true,
+                    defaultValue: null,
+                    value: null,
+                  },
+                ],
+                outputParams: [],
+                options: null,
+              },
+            },
+          ],
+          edges: [],
+        },
+        data: null,
+        releaseTime: null,
       };
-      // return service.flow.info
-      //   .info({
-      //     id: flowId || info.value?.id
-      //   })
-      //   .then((res) => {
-      //     if (res) {
-      //       info.value = res;
-      //
-      //     } else {
-      //       ElMessageBox.alert("流程不存在或异常，请重新选择。", "提示", {
-      //         callback() {
-      //           router.back();
-      //         }
-      //       });
-      //     }
-      //
-      //     return res;
-      //   });
+      // 还原节点
+      restore(res.draft);
+      // 开始节点
+      if (isEmpty(nodes.value)) {
+        def();
+      }
     }
 
     /**
@@ -721,7 +745,6 @@ export const useFlow = () => {
 
           nodes.value.forEach((e) => {
             const cn = CustomNodes.value.find((a) => a.type === e.type);
-
             if (cn) {
               // 处理卡片宽度
               const configWidth = cn.form?.width || '400px';
@@ -733,6 +756,9 @@ export const useFlow = () => {
               e.group = cn.group;
               e.validator = cn.validator;
               e.cardWidth = width;
+              if (cn.icon) {
+                e.icon = cn.icon
+              }
             }
           });
         }
@@ -874,7 +900,7 @@ export const useFlow = () => {
       // Message.success('导出成功');
     }
 
-    const expose: any = {
+    const expose: { [key: string]: any } = {
       CustomNodes,
       nodes,
       node,

@@ -1,31 +1,41 @@
 <script setup lang="ts">
-import type { FlowNode } from '#/components/flow/types/index';
+import type { FlowNode } from '#/types/flow';
 
-import { reactive, ref } from 'vue';
+import { computed, reactive, ref } from 'vue';
 
-import {} from 'ant-design-vue';
+import { ZondiconsAddSolid } from '@vben/icons';
+
 import { isEmpty } from 'lodash';
 
+// import { useCool } from '#/hooks/hooks/index';
 import { useFlow } from '#/hooks/hooks/userFlow';
+
+// const props = defineProps({
+//   node: {
+//     type: Object as PropType<FlowNode>,
+//     default: () => ({}),
+//   },
+// });
+
+// const emit = defineEmits(['select', 'hide']);
+
+// const { mitt } = useCool();
 
 // 关键字
 // const keyWord = ref('');
-const flow: any = {};
-useFlow();
+const flow = useFlow();
+
+// 关键字
+const keyWord = ref('');
 
 // 是否可见
 const visible = ref(false);
 
 // 列表
-const list: object[] = [
-  {
-    label: '一级标',
-    children: [{ label: '测试', type: '1', description: '描述内容--' }],
-  },
-];
+const list = computed(() => flow.getGroup(keyWord.value));
 
 // 拖放
-const drag: any = reactive({
+const drag = reactive({
   startX: 0,
   startY: 0,
   el: null as HTMLElement | null,
@@ -51,6 +61,7 @@ function mousedown(e: MouseEvent, node: FlowNode) {
 }
 
 function mousemove(e: MouseEvent) {
+  console.log('mousemove');
   if (drag.el) {
     if (!drag.el.className.includes('is-drag')) {
       drag.el.className += ' is-drag';
@@ -91,7 +102,7 @@ function mouseup(e: MouseEvent) {
       @click="visible = !visible"
     >
       <!--    <cl-svg name="add2"></cl-svg>-->
-      add
+      <ZondiconsAddSolid class="size-15" color="#1677ff" />
     </div>
     <div
       :class="{
@@ -113,8 +124,7 @@ function mouseup(e: MouseEvent) {
               class="cl-flow__tools-node-add-item item"
               @mousedown="(e) => mousedown(e, b)"
             >
-              <!--              <tools-icon :color="b.color" :name="b.icon" :size="30" />-->
-              123
+              <component :is="b.icon" :color="b.color" class="size-5" />
               <div class="det">
                 <p>{{ b.label }}</p>
                 <p>{{ b.description }}</p>

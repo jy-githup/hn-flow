@@ -1,4 +1,4 @@
-import { CSSProperties } from 'vue';
+import { App, Component, CSSProperties } from 'vue';
 
 export declare type FlowField = {
   [key: string]: any;
@@ -80,4 +80,33 @@ declare interface FlowNodeResult {
     success: boolean;
   };
   [key: string]: any;
+}
+
+export declare interface ModuleConfig {
+  name?: string;
+  label?: string;
+  description?: string;
+  order?: number;
+  version?: string;
+  logo?: string;
+  author?: string;
+  updateTime?: string;
+  demo?: { component: Component; name: string }[] | string;
+  options?: {
+    [key: string]: any;
+  };
+  toolbar?: {
+    component: Promise<any>;
+    h5?: boolean;
+    order?: number;
+    pc?: boolean;
+  };
+  components?: Component[];
+  views?: RouteRecordRaw[];
+  pages?: RouteRecordRaw[];
+  install?(app: App, options?: any): any;
+  onLoad?(events: {
+    [key: string]: any;
+    hasToken: (cb: () => Promise<any> | void) => Promise<any> | void;
+  }): Promise<{ [key: string]: any }> | Promise<void> | void;
 }

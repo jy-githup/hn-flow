@@ -12,6 +12,7 @@ import { $t, setupI18n } from '#/locales';
 
 import { initComponentAdapter } from './adapter/component';
 import App from './app.vue';
+import { bootstrap1 } from './cool';
 import { router } from './router';
 
 async function bootstrap(namespace: string) {
@@ -19,30 +20,33 @@ async function bootstrap(namespace: string) {
   await initComponentAdapter();
 
   const app = createApp(App);
+  bootstrap1(app).then(async () => {
 
-  // 国际化 i18n 配置
-  await setupI18n(app);
 
-  // 配置 pinia-tore
-  await initStores(app, { namespace });
+    // 国际化 i18n 配置
+    await setupI18n(app);
 
-  // 安装权限指令
-  registerAccessDirective(app);
+    // 配置 pinia-tore
+    await initStores(app, { namespace });
 
-  // 配置路由及路由守卫
-  app.use(router);
+    // 安装权限指令
+    registerAccessDirective(app);
 
-  // 动态更新标题
-  watchEffect(() => {
-    if (preferences.app.dynamicTitle) {
-      const routeTitle = router.currentRoute.value.meta?.title;
-      const pageTitle =
-        (routeTitle ? `${$t(routeTitle)} - ` : '') + preferences.app.name;
-      useTitle(pageTitle);
-    }
+    // 配置路由及路由守卫
+    app.use(router);
+
+    // 动态更新标题
+    watchEffect(() => {
+      if (preferences.app.dynamicTitle) {
+        const routeTitle = router.currentRoute.value.meta?.title;
+        const pageTitle =
+          (routeTitle ? `${$t(routeTitle)} - ` : '') + preferences.app.name;
+        useTitle(pageTitle);
+      }
+    });
+
+    app.mount('#app');
   });
-
-  app.mount('#app');
 }
 
 export { bootstrap };

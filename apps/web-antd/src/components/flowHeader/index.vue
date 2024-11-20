@@ -1,12 +1,22 @@
 <script setup lang="ts" name="flowHeader">
 import { reactive } from 'vue';
 
+import {
+  CodiconRunAll,
+  IxExport,
+  MynauiSend,
+  RiSaveLine,
+  UilSetting,
+} from '@vben/icons';
+
 import { Button, message, Modal, Popover, Tag, Tooltip } from 'ant-design-vue';
+import NodeConfig from "#/components/tools/node-config.vue";
 import dayjs from 'dayjs';
+import { useFlow } from "#/hooks/hooks/userFlow";
 
-// import { useCool } from '#/hooks/hooks/index.ts';
-
-const flow: any = {};
+import { useCool } from '#/hooks/hooks/index.ts';
+const { mitt, refs, setRefs, service } = useCool();
+const flow = useFlow();
 
 const save = () => {
   message.success('数据保存成功');
@@ -46,7 +56,7 @@ const publish = reactive({
 </script>
 
 <template>
-  <div class="flowHeaderBox">
+  <div class="tools-head">
     <div class="info">
       <p class="title">{{ flow.info?.name || '测试字段' }}</p>
       <p class="desc">
@@ -55,16 +65,19 @@ const publish = reactive({
     </div>
     <div class="op">
       <div class="item" @click="save()">
-        <Tooltip placement="top" title="保存"> save </Tooltip>
+        <Tooltip placement="top" title="保存">
+          <RiSaveLine class="size-5" />
+        </Tooltip>
       </div>
       <div class="item" @click="run()">
-        <Tooltip content="运行" placement="top"> 运行 </Tooltip>
+        <Tooltip placement="top" title="运行">
+          <CodiconRunAll class="size-5" />
+        </Tooltip>
       </div>
       <Popover title="Title" trigger="click">
         <template #content>
           <div class="publish">
             <Tag size="small" tag="p">{{ publish.tips }}</Tag>
-
             <div class="btn">
               <Button class="a" type="primary" @click="publish.next">
                 发布
@@ -73,31 +86,30 @@ const publish = reactive({
           </div>
         </template>
         <div class="item">
-          <Tooltip content="发布" placement="top">
-            <!--              <cl-svg name="publish" />-->
-            发布
+          <Tooltip placement="top" title="发布">
+            <MynauiSend class="size-5" />
           </Tooltip>
         </div>
       </Popover>
       <!--      @click="refs.nodeConfig?.open()"-->
       <div class="item">
         <Tooltip placement="top" title="配置">
-          <!--          <cl-svg name="set" />-->
-          配置
+          <UilSetting class="size-5" />
         </Tooltip>
       </div>
       <div class="item" @click="exportFlow()">
         <Tooltip placement="top" title="导出">
-          <!--          <cl-svg name="export" />-->
-          导出
+          <IxExport class="size-5" />
         </Tooltip>
       </div>
     </div>
+
+    <node-config :ref="setRefs('nodeConfig')" />
   </div>
 </template>
 
 <style scoped lang="scss">
-.flowHeaderBox {
+.tools-head {
   position: absolute;
   top: 0;
   left: 0;
