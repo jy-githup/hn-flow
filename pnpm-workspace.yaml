@@ -107,7 +107,6 @@ catalog:
   h3: ^1.13.0
   happy-dom: ^15.11.6
   html-minifier-terser: ^7.2.0
-  husky: ^9.1.6
   is-ci: ^3.0.1
   jsonc-eslint-parser: ^2.4.0
   jsonwebtoken: ^9.0.2

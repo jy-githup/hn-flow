@@ -106,7 +106,6 @@ function sortPackageJson(): Linter.Config {
             'pnpm',
             'overrides',
             'resolutions',
-            'husky',
             'simple-git-hooks',
             'lint-staged',
             'eslintConfig',
