@@ -25,11 +25,11 @@ export function useParent(name: string, r: Ref) {
     let parent = d.proxy?.$.parent;
 
     if (parent) {
-      while (parent && parent.type?.name != name) {
+      while (parent && parent.type?.name !== name) {
         parent = parent?.parent;
       }
 
-      if (parent && parent.type.name == name) {
+      if (parent && parent.type.name === name) {
         r.value = parent.exposed;
       }
     }
@@ -40,6 +40,7 @@ export function useParent(name: string, r: Ref) {
 
 export function useCool() {
   return {
+    service: () => {},
     route: useRoute(),
     router: useRouter(),
     mitt: useMitt(),

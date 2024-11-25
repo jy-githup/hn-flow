@@ -9,17 +9,12 @@ import {
   watch,
 } from 'vue';
 
-import {
-  iconamoonSearchThin,
-  LsiconDownOutline,
-  MaterialSymbolsLightCheck,
-} from '@vben/icons';
-
 import { isEmpty } from 'lodash-es';
 
 import { useCool } from '#/hooks/hooks/index';
 
 import ModelText from './model-text.vue';
+import {getNodeInfoApi} from "#/api/flowManage";
 
 const props = defineProps({
   modelValue: {
@@ -42,9 +37,10 @@ const keyWord = ref('');
 const model = reactive({
   list: [] as LLMItem[],
 
-  get() {
-    service.flow.config.getByNode({ node: 'llm' }).then((res) => {
-      model.list = (res as Eps.FlowConfigEntity[]).map((e) => {
+  async get() {
+    const res = await getNodeInfoApi('llm');
+    if (res.data) {
+      model.list = (res.data as Eps.FlowConfigEntity[]).map((e) => {
         const d: LLMItem = {
           options: [],
           title: e.name!,
@@ -92,7 +88,7 @@ const model = reactive({
       if (item) {
         model.select(name, item);
       }
-    });
+    }
   },
 
   select(name: string, item: LLMItem) {
@@ -155,7 +151,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <a-popover
+  <el-popover
     :offset="5"
     :teleported="false"
     popper-class="cl-flow__popper"
@@ -173,7 +169,7 @@ onMounted(() => {
       <div class="model">
         <p class="title">模型</p>
 
-        <a-popover
+        <el-popover
           :ref="setRefs('modelPopover')"
           :offset="5"
           :popper-style="{
@@ -189,14 +185,17 @@ onMounted(() => {
             <div class="inner">
               <span v-if="value?.params.model">{{ value.params.model }}</span>
               <span v-else class="placeholder">选择模型</span>
-              <LsiconDownOutline class="size-5" />
+
+              <el-icon class="arrow">
+                <arrow-down />
+              </el-icon>
             </div>
           </template>
 
           <div class="search">
-            <a-input
+            <el-input
               v-model="keyWord"
-              :prefix-icon="iconamoonSearchThin"
+              :prefix-icon="Search"
               clearable
               placeholder="搜索模型"
             />
@@ -218,14 +217,14 @@ onMounted(() => {
                 <span>{{ m }}</span>
 
                 <el-icon class="check">
-                  <MaterialSymbolsLightCheck class="size-5" />
+                  <check />
                 </el-icon>
               </div>
             </div>
           </el-scrollbar>
 
           <div v-if="isEmpty(list)" class="empty">未找到匹配项</div>
-        </a-popover>
+        </el-popover>
       </div>
 
       <div v-if="!isEmpty(value.options)" class="params">
@@ -265,7 +264,7 @@ onMounted(() => {
         </view>
       </div>
     </div>
-  </a-popover>
+  </el-popover>
 </template>
 
 <style lang="scss" scoped>

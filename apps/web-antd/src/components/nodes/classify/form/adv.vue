@@ -1,6 +1,8 @@
 <script setup lang="ts" name="node-problem-form-adv">
 import { useModel } from 'vue';
 
+import { Input } from 'ant-design-vue';
+
 const props = defineProps({
   modelValue: {
     type: Object,
@@ -18,7 +20,7 @@ const data = useModel(props, 'modelValue');
         <span>指令</span>
       </div>
 
-      <a-input
+      <Input
         v-model="data.cmd"
         :autosize="{
           minRows: 4,

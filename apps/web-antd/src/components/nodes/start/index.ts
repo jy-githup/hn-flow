@@ -1,6 +1,6 @@
 import type { FlowNode } from '#/types/flow/index';
 
-import { MdiHomeCircle } from '@vben/icons';
+import { SvgFlowStartIcon } from '@vben/icons';
 
 import { isEmpty } from 'lodash-es';
 
@@ -11,7 +11,8 @@ const config = (): FlowNode => {
   return {
     label: '开始',
     description: '开始节点',
-    icon: MdiHomeCircle,
+    icon: SvgFlowStartIcon,
+    bgColor: '#409eff',
     color: '#409eff',
     form: {
       items: [

@@ -1,18 +1,20 @@
-import type { FlowNode } from '/$/flow/types';
+import type { FlowNode } from '#/types/flow/index';
+
+import { SvgFlowLlmIcon } from '@vben/icons';
 
 import FormInputParams from '../_base/form/input-params.vue';
 import FormOutputParams from '../_base/form/output-params.vue';
 import Editor from './editor/index.vue';
 import component from './index.vue';
-import { MaterialCode } from '@vben/icons';
-// import { Snippet } from './shippets';
+import { Snippet } from './shippets';
 
 export default (): FlowNode => {
   return {
     group: '行为',
     label: '执行代码',
-    icon: MaterialCode,
+    icon: SvgFlowLlmIcon,
     description: '执行一段自定义代码，可以调用框架的插件、数据库、service等',
+    bgColor: '#67c23a',
     color: '#67c23a',
     component,
     form: {
@@ -54,7 +56,8 @@ export default (): FlowNode => {
         },
       ],
       options: {
-        code: 200, // Snippet.base,
+        // code: 200, // Snippet.base,
+        code: Snippet?.base,
       },
     },
     validator(data) {

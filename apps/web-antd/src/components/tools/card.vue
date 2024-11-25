@@ -4,23 +4,19 @@ import type { FlowNode, FlowNodeResult } from '#/types/flow/index';
 import { computed, nextTick, onMounted, onUnmounted, reactive } from 'vue';
 
 import {
-  CodiconRunAll,
-  MajesticonsMoreMenuLine,
-  MaterialDeleteOutline,
+  SvgFlowMoreIcon,
   NoniconsLoading,
+  SvgFlowDeleteIcon,
+  SvgFlowRunIcon,
 } from '@vben/icons';
-
-import { Input, Tooltip } from 'ant-design-vue';
 
 import { useCool } from '#/hooks/hooks/index';
 import { useFlow } from '#/hooks/hooks/userFlow';
 
 import CardForm from './card/form.vue';
-
+import ToolsHandle from './handle.vue';
 // import ToolsIcon from './icon.vue';
 import ToolsMore from './more.vue';
-
-import ToolsHandle from './handle.vue';
 
 const props = defineProps({
   // eslint-disable-next-line vue/require-default-prop
@@ -262,7 +258,7 @@ onUnmounted(() => {
   >
     <!-- 源选择点 -->
     <ToolsHandle
-      v-if="node?.handle?.source"
+      v-if="node?.handle?.source ?? true"
       id="source"
       :node-id="nodeId"
       :position="{
@@ -274,7 +270,7 @@ onUnmounted(() => {
 
     <!-- 目标选择点 -->
     <ToolsHandle
-      v-if="node?.handle?.target"
+      v-if="node?.handle?.target ?? true"
       id="target"
       :node-id="nodeId"
       :position="{
@@ -285,9 +281,18 @@ onUnmounted(() => {
     />
 
     <div class="head">
-      <component :is="node?.icon" :color="node?.color" />
-
-      <Input
+      <div
+        :style="`background: ${node.color || 'rgb(64, 158, 255)'};`"
+        class="iconCompontentBox"
+      >
+        <component
+          :is="node.icon"
+          class="size-3"
+          color="#ffffff"
+          style="fill: currentColor"
+        />
+      </div>
+      <el-input
         v-if="isActive && flow.node?.label"
         v-model="flow.node.label"
         class="label"
@@ -297,36 +302,25 @@ onUnmounted(() => {
 
       <div class="btns" @click.stop>
         <template v-if="!isStart">
-          <!-- <tools-nodes :node="node" is-change>
-						<cl-svg name="change" />
-					</tools-nodes> -->
-          <Tooltip v-if="isRun && isActive" placement="top" title="调试">
-            <!--            <cl-svg class="btn-icon is-bg" name="run" @click="run" />-->
-            <CodiconRunAll class="btn-icon is-bg size-5" @click="run" />
-          </Tooltip>
+          <el-tooltip v-if="isRun && isActive" content="调试" placement="top">
+            <SvgFlowRunIcon class="btn-icon is-bg size-4" @click="run" />
+          </el-tooltip>
 
-          <Tooltip placement="top" title="删除">
-            <MaterialDeleteOutline
-              class="btn-icon is-bg size-5"
-              @click="remove"
-            />
-          </Tooltip>
-          <!--          <Tooltip v-if="isActive" placement="top" title="关闭">-->
-          <!--            <MaterialDeleteOutline class="size-5 btn-icon is-bg" @click.stop="close" />-->
-          <!--          </Tooltip>-->
+          <el-tooltip content="删除" placement="top">
+            <SvgFlowDeleteIcon class="btn-icon is-bg size-4" @click="remove" />
+          </el-tooltip>
+          <!--          <el-tooltip v-if="isActive" placement="top" content="关闭">-->
+          <!--            <SvgFlowDeleteIcon class="size-5 btn-icon is-bg" @click.stop="close" />-->
+          <!--          </el-tooltip>-->
         </template>
-        <!-- <Tooltip  placement="top" :title="node?.description>
-					<cl-svg name="info" />
-				</Tooltip> -->
-
         <ToolsMore :node="node">
-          <MajesticonsMoreMenuLine class="size-5" />
+          <SvgFlowMoreIcon class="size-6" />
         </ToolsMore>
       </div>
     </div>
 
     <div class="desc">
-      <Input
+      <el-input
         v-if="isActive"
         v-model="flow.node!.desc"
         :placeholder="node?.description"
@@ -341,7 +335,7 @@ onUnmounted(() => {
     </div>
 
     <div v-if="result.status !== 'none'" class="tips">
-      <NoniconsLoading v-if="result.status === 'running'" />
+      <NoniconsLoading v-if="result.status === 'running'" class="size-6" />
       <span>{{ result.message }}</span>
     </div>
   </div>
@@ -373,7 +367,7 @@ onUnmounted(() => {
     box-sizing: border-box;
 
     .iconify {
-      color: hsl(var(--color-text-regular));
+      color: var(--el-color-info);
       cursor: pointer;
       border-radius: 4px;
       &:hover,
@@ -516,5 +510,16 @@ onUnmounted(() => {
       color: var(--el-color-success);
     }
   }
+}
+.iconCompontentBox {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  color: #ffffff;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
 }
 </style>

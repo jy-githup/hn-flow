@@ -3,7 +3,6 @@ import type { FlowNode } from '#/types/flow/index';
 
 import { type PropType } from 'vue';
 
-import { Popover } from 'ant-design-vue';
 import { cloneDeep } from 'lodash-es';
 
 import { useCool } from '#/hooks/hooks/index';
@@ -69,25 +68,29 @@ function toCommand(value: string) {
 </script>
 
 <template>
-  <Popover :ref="setRefs('popover')" placement="bottomLeft" trigger="click">
-    <template #content>
-      <div class="tools-more">
-        <div class="list">
-          <template v-for="(item, index) in list" :key="index">
-            <div
-              v-if="!item.hidden"
-              class="item"
-              @click="toCommand(item.value)"
-            >
-              <span class="label">{{ item.label }}</span>
-              <span v-if="item.desc" class="desc">{{ item.desc }}</span>
-            </div>
-          </template>
-        </div>
-      </div>
+  <el-popover
+    :ref="setRefs('popover')"
+    trigger="click"
+    width="200px"
+    placement="bottom-start"
+    popper-class="cl-flow__popper"
+    :offset="5"
+  >
+    <template #reference>
+      <slot></slot>
     </template>
-    <slot></slot>
-  </Popover>
+
+    <div class="tools-more">
+      <div class="list">
+        <template v-for="(item, index) in list" :key="index">
+          <div class="item" @click="toCommand(item.value)" v-if="!item.hidden">
+            <span class="label">{{ item.label }}</span>
+            <span class="desc" v-if="item.desc">{{ item.desc }}</span>
+          </div>
+        </template>
+      </div>
+    </div>
+  </el-popover>
 </template>
 
 <style lang="scss" scoped>

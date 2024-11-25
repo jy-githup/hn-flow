@@ -345,7 +345,7 @@ onUnmounted(() => {
       <!-- 统一控状态 -->
       <template #empty>
         <slot name="empty">
-          <EmptyIcon class="mx-auto" />
+          <EmptyIcon class="mx-auto size-6" />
           <div class="mt-2">{{ $t('common.noData') }}</div>
         </slot>
       </template>

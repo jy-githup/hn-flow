@@ -2,35 +2,39 @@
 import { reactive } from 'vue';
 
 import {
-  CodiconRunAll,
+  SvgFlowRunIcon,
   IxExport,
   MynauiSend,
   RiSaveLine,
   UilSetting,
 } from '@vben/icons';
 
-import { Button, message, Modal, Popover, Tag, Tooltip } from 'ant-design-vue';
-import NodeConfig from "#/components/tools/node-config.vue";
 import dayjs from 'dayjs';
-import { useFlow } from "#/hooks/hooks/userFlow";
+import { ElMessage, ElMessageBox } from 'element-plus';
 
-import { useCool } from '#/hooks/hooks/index.ts';
+import NodeConfig from '#/components/tools/node-config.vue';
+import { useCool } from '#/hooks/hooks/index';
+import { useFlow } from '#/hooks/hooks/userFlow';
+
 const { mitt, refs, setRefs, service } = useCool();
 const flow = useFlow();
 
-const save = () => {
-  message.success('数据保存成功');
+const save = async () => {
+  ElMessage.success('数据保存成功');
+  mitt.emit('flow.closeForm');
+  await flow.save();
 };
-const run = () => {};
+const run = () => {
+  mitt.emit('flow.runOpen');
+  mitt.emit('flow.closeForm');
+};
 const exportFlow = () => {
-  Modal.confirm({
-    title: '提示',
-    content: '是否要导出当前流程？',
-    okText: '确认',
-    cancelText: '取消',
-    onOk() {
-      // flow.exportFlow();
-    },
+  ElMessageBox.confirm('是否要导出当前流程？', '提示', {
+    type: 'success',
+    confirmButtonText: '确认',
+    cancelButtonText: '取消',
+  }).then(() => {
+    flow.exportFlow();
   });
 };
 
@@ -50,7 +54,37 @@ const publish = reactive({
   },
 
   next() {
-    // refs?.publishPopover?.hide();
+    refs.publishPopover?.hide();
+
+    mitt.emit('flow.runCheck', async (status: boolean) => {
+      if (status) {
+        ElMessage.success('检测通过，发布中');
+
+        publish.loading = true;
+
+        // 保存草稿
+        await flow.save();
+
+        // 调用发布接口
+
+        ElMessage.success('发布成功');
+        flow.get();
+        publish.loading = false;
+        // await service.flow.info
+        //   .release({
+        //     flowId: flow.info?.id,
+        //   })
+        //   .then(() => {
+        //     ElMessage.success('发布成功');
+        //     flow.get();
+        //   })
+        //   .catch((error) => {
+        //     ElMessage.error(error.message);
+        //   });
+
+        publish.loading = false;
+      }
+    });
   },
 });
 </script>
@@ -65,46 +99,46 @@ const publish = reactive({
     </div>
     <div class="op">
       <div class="item" @click="save()">
-        <Tooltip placement="top" title="保存">
-          <RiSaveLine class="size-5" />
-        </Tooltip>
+        <el-tooltip content="保存" placement="top">
+          <RiSaveLine class="size-6" />
+        </el-tooltip>
       </div>
       <div class="item" @click="run()">
-        <Tooltip placement="top" title="运行">
-          <CodiconRunAll class="size-5" />
-        </Tooltip>
+        <el-tooltip content="运行" placement="top">
+          <SvgFlowRunIcon class="size-6" />
+        </el-tooltip>
       </div>
-      <Popover title="Title" trigger="click">
-        <template #content>
-          <div class="publish">
-            <Tag size="small" tag="p">{{ publish.tips }}</Tag>
-            <div class="btn">
-              <Button class="a" type="primary" @click="publish.next">
-                发布
-              </Button>
-            </div>
+      <el-popover title="Title" trigger="click">
+        <template #reference>
+          <div class="item">
+            <el-tooltip content="发布" placement="top">
+              <MynauiSend class="size-6" />
+            </el-tooltip>
           </div>
         </template>
-        <div class="item">
-          <Tooltip placement="top" title="发布">
-            <MynauiSend class="size-5" />
-          </Tooltip>
+        <div class="publish">
+          <el-text size="small" tag="p">{{ publish.tips }}</el-text>
+          <div class="btn">
+            <el-button class="a" type="primary" @click="publish.next">
+              发布
+            </el-button>
+          </div>
         </div>
-      </Popover>
+      </el-popover>
       <!--      @click="refs.nodeConfig?.open()"-->
       <div class="item">
-        <Tooltip placement="top" title="配置">
-          <UilSetting class="size-5" />
-        </Tooltip>
+        <el-tooltip content="配置" placement="top">
+          <UilSetting class="size-6" @click="refs.nodeConfig?.open()" />
+        </el-tooltip>
       </div>
       <div class="item" @click="exportFlow()">
-        <Tooltip placement="top" title="导出">
-          <IxExport class="size-5" />
-        </Tooltip>
+        <el-tooltip content="导出" placement="top">
+          <IxExport class="size-6" />
+        </el-tooltip>
       </div>
     </div>
 
-    <node-config :ref="setRefs('nodeConfig')" />
+    <NodeConfig :ref="setRefs('nodeConfig')" />
   </div>
 </template>
 

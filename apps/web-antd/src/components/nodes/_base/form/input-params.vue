@@ -3,9 +3,8 @@ import type { FlowField } from '#/types/flow/index';
 
 import { computed, type PropType, useModel } from 'vue';
 
-import { IonAdd, MaterialDeleteOutline, SiInfoFill } from '@vben/icons';
+import { IonAdd, SvgFlowDeleteIcon, SiInfoFill } from '@vben/icons';
 
-import { Button, Input } from 'ant-design-vue';
 import { isEmpty } from 'lodash-es';
 
 import ToolsVar from '#/components/tools/var.vue';
@@ -67,7 +66,7 @@ function remove(index: number) {
 
 <template>
   <div class="form-input-params">
-    <IonAdd v-if="!disabled" class="btn-icon is-rt" @click="add()" />
+    <IonAdd v-if="!disabled" class="btn-icon is-rt size-6" @click="add()" />
 
     <div
       v-for="(item, index) in list"
@@ -78,7 +77,7 @@ function remove(index: number) {
       class="item"
     >
       <div class="d">
-        <Input
+        <el-input
           v-model="item.field"
           :disabled="!editField"
           class="name"
@@ -96,16 +95,16 @@ function remove(index: number) {
           :inputable="varInputable"
         />
       </div>
-      <MaterialDeleteOutline
+      <SvgFlowDeleteIcon
         v-if="!disabled"
-        class="btn-icon"
+        class="btn-icon size-6"
         @click="remove(index)"
       />
     </div>
-    <Button v-if="isEmpty(list) && placeholder" size="small" type="text">
-      <SiInfoFill />
+    <el-button v-if="isEmpty(list) && placeholder" size="small" type="text">
+      <SiInfoFill class="size-6" />
       {{ placeholder }}
-    </Button>
+    </el-button>
   </div>
 </template>
 

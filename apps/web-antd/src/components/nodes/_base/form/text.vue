@@ -1,7 +1,6 @@
 <script setup lang="ts" name="node-base-form-text">
 import { computed } from 'vue';
 
-import { Button } from 'ant-design-vue';
 import { isArray } from 'lodash-es';
 
 const props = defineProps({
@@ -18,7 +17,7 @@ const list = computed(() => {
 
 <template>
   <div class="form-text">
-    <Button
+    <el-button
       v-for="(item, index) in list"
       :key="index"
       size="small"
@@ -26,7 +25,7 @@ const list = computed(() => {
       type="text"
     >
       {{ item }}
-    </Button>
+    </el-button>
   </div>
 </template>
 

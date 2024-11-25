@@ -1,4 +1,4 @@
-import type { ModuleConfig } from '#/types/flow/index';
+import type { ModuleConfig } from '#/cool';
 
 export default (): ModuleConfig => {
   return {
@@ -14,13 +14,13 @@ export default (): ModuleConfig => {
       },
       {
         name: '顶部详情',
-        // component: () => import('./demo/head.vue'),
+        component: () => import('./demo/head.vue'),
       },
     ],
 
     components: [
-      // () => import('./components/group.vue'),
-      // () => import('./components/head.vue'),
+      () => import('./components/group.vue'),
+      () => import('./components/head.vue'),
     ],
   };
 };

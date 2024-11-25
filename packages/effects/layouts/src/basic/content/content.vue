@@ -87,7 +87,7 @@ function transformComponent(
 </script>
 
 <template>
-  <div class="relative h-full">
+  <div class="relative h-full overflow-hidden">
     <IFrameRouterView />
     <RouterView v-slot="{ Component, route }">
       <Transition :name="getTransitionName(route)" appear mode="out-in">
@@ -112,3 +112,12 @@ function transformComponent(
     </RouterView>
   </div>
 </template>
+
+<style scoped lang="scss">
+.relative {
+  //padding: 15px;
+  //box-sizing: border-box;
+  //overflow: hidden;
+  //overflow-y: auto;
+}
+</style>

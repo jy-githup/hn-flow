@@ -5,7 +5,7 @@ import { computed, type PropType } from 'vue';
 
 // import ModelText from '../llm/form/model-text.vue';
 
-// import ToolsHandle from '/$/flow/components/tools/handle.vue';
+// import ToolsHandle from '#/components/tools/handle.vue';
 const props = defineProps({
   node: {
     type: Object as PropType<FlowNode>,

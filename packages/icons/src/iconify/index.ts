@@ -44,14 +44,6 @@ export const MaterialSymbolsLightCheck = createIconifyIcon(
 // 搜索
 export const iconamoonSearchThin = createIconifyIcon('iconamoon:search-thin');
 
-// 百度
-export const JamBaiduCircle = createIconifyIcon('jam:baidu-circle');
-
-// 删除
-export const MaterialDeleteOutline = createIconifyIcon(
-  'material-symbols-light:delete-outline',
-);
-
 // 更多
 export const MajesticonsMoreMenuLine = createIconifyIcon(
   'majesticons:more-menu-line',
@@ -64,7 +56,9 @@ export const NoniconsLoading = createIconifyIcon('nonicons:loading-16');
 export const MdiHomeCircle = createIconifyIcon('mdi:home-circle');
 
 // 右箭头
-export const FluentPageRightArrow = createIconifyIcon('fluent-mdl2:page-right');
+export const FluentPageRightArrow = createIconifyIcon(
+  'icon-park-solid:right-c',
+);
 
 // 添加
 export const IonAdd = createIconifyIcon('ion:add');
@@ -95,4 +89,38 @@ export const MynauiRefresh = createIconifyIcon('mynaui:refresh');
 // 整理
 export const MaterialGridOnSharp = createIconifyIcon(
   'material-symbols-light:grid-on-sharp',
+);
+
+// 缩小
+export const IconParkSolidReduceOne = createIconifyIcon(
+  'icon-park-solid:reduce-one',
+);
+
+// 放大
+export const CarbonAddFilled = createIconifyIcon('carbon:add-filled');
+
+export const IconoirCursorPointer = createIconifyIcon('iconoir:cursor-pointer');
+
+export const ProiconsHand = createIconifyIcon('proicons:hand');
+
+export const IconamoonSortingLeft = createIconifyIcon('iconamoon:sorting-left');
+
+export const MaterialSymbolsMyLocationRounded = createIconifyIcon(
+  'material-symbols:my-location-rounded',
+);
+
+export const VaadinArrowBackward = createIconifyIcon('vaadin:arrow-backward');
+
+export const EntypoForward = createIconifyIcon('entypo:forward');
+
+export const FluentRecordStop = createIconifyIcon(
+  'fluent:record-stop-12-regular',
+);
+
+export const SolarBRanchIngPaths = createIconifyIcon(
+  'solar:branching-paths-down-outline',
+);
+
+export const FluentBracesvariable = createIconifyIcon(
+  'fluent:braces-variable-24-filled',
 );

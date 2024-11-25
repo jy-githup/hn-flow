@@ -1,16 +1,17 @@
 <script setup lang="ts" name="tools-set-node-config">
-import { ref } from 'vue';
+import { markRaw, ref } from 'vue';
+
+import { MynauiRefresh } from '@vben/icons';
 
 import { useCrud, useUpsert } from '@cool-vue/crud';
 import { isEmpty, keys } from 'lodash-es';
-import { MynauiRefresh } from '@vben/icons';
 
 import { useViewGroup } from '#/plugins/view';
 
 // const { service } = useCool();
 
 // 列表数据
-const list = ref<Eps.FlowConfigEntity>([]);
+const list = markRaw<Eps.FlowConfigEntity>([]);
 
 // 配置
 const config = ref({});
@@ -197,9 +198,10 @@ defineExpose({
 </script>
 
 <template>
-  <a-modal
+  <el-dialog
     v-model="visible"
     :scrollbar="false"
+    append-to-body
     height="700px"
     padding="0"
     title="配置"
@@ -220,14 +222,14 @@ defineExpose({
 
       <template #right>
         <div class="opbar">
-          <a-button size="small" type="success" @click="Crud?.rowAdd()">
+          <el-button size="small" type="success" @click="Crud?.rowAdd()">
             添加
-          </a-button>
+          </el-button>
         </div>
 
         <cl-crud ref="Crud" padding="0 10px">
-          <a-row :gutter="10">
-            <a-col
+          <el-row :gutter="10">
+            <el-col
               v-for="(item, index) in list"
               :key="index"
               :span="8"
@@ -242,31 +244,31 @@ defineExpose({
                 </div>
 
                 <div class="content">
-                  <a-button type="text" :line-clamp="4" size="small">
+                  <el-button :line-clamp="4" size="small" type="text">
                     {{ item.description || '暂无描述' }}
-                  </a-button>
+                  </el-button>
                 </div>
               </div>
-            </a-col>
-          </a-row>
+            </el-col>
+          </el-row>
 
           <cl-upsert ref="Upsert">
             <template #slot-options="{ scope }">
               <cl-editor-monaco v-model="scope.options" />
 
-              <a-tooltip content="重置">
-                <MynauiRefresh class="options-btn" @click="reset" />
-              </a-tooltip>
+              <el-tooltip content="重置">
+                <MynauiRefresh class="options-btn size-6" @click="reset" />
+              </el-tooltip>
             </template>
           </cl-upsert>
 
           <div v-if="isEmpty(list)" class="empty">
-            <a-empty :image-size="100" />
+            <el-empty :image-size="100" />
           </div>
         </cl-crud>
       </template>
     </cl-view-group>
-  </a-modal>
+  </el-dialog>
 </template>
 
 <style lang="scss" scoped>
@@ -345,7 +347,7 @@ defineExpose({
   right: 12px;
   top: 8px;
 
-  .el-button {
+  .ant-btn {
     border-radius: 4px;
   }
 }

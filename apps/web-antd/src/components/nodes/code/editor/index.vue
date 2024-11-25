@@ -1,12 +1,12 @@
 <script setup lang="ts" name="node-code-editor">
 import { computed, onMounted, reactive, useModel, watch } from 'vue';
 
+import { CarbonDebug, MingcuteFullscreenLine } from '@vben/icons';
+
 import { useCool } from '#/hooks/hooks/index';
 import { useFlow } from '#/hooks/hooks/userFlow';
-import { Tooltip } from 'ant-design-vue';
-import { MingcuteFullscreenLine, CarbonDebug } from '@vben/icons';
 
-// import { declares } from './declares';
+import { declares } from './declares';
 
 import { addDeclare } from '#/plugins/editor-monaco';
 
@@ -15,7 +15,9 @@ const props = defineProps({
 });
 
 // import { ctx } from 'virtual:ctx';
-const ctx = {};
+const ctx = {
+  serviceLang: 'Java',
+};
 
 const { refs, setRefs, mitt } = useCool();
 const flow = useFlow();
@@ -104,13 +106,13 @@ onMounted(() => {
 <template>
   <div class="editor">
     <div class="opbar">
-      <Tooltip title="全屏">
-        <MingcuteFullscreenLine class="btn-icon" @click="fullscreen.open" />
-      </Tooltip>
+      <el-tooltip content="全屏">
+        <MingcuteFullscreenLine class="btn-icon size-6" @click="fullscreen.open" />
+      </el-tooltip>
 
-      <Tooltip title="调试">
-        <CarbonDebug class="btn-icon" @click="toDebug" />
-      </Tooltip>
+      <el-tooltip content="调试">
+        <CarbonDebug class="btn-icon size-6" @click="toDebug" />
+      </el-tooltip>
     </div>
 
     <cl-editor-monaco
@@ -144,5 +146,8 @@ onMounted(() => {
   position: absolute;
   right: 0;
   top: -30px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 </style>

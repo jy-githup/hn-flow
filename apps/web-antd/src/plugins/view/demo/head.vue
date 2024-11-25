@@ -1,3 +1,3 @@
 <template>
-	<cl-view-head title="标题" />
+  <cl-view-head title="标题" />
 </template>

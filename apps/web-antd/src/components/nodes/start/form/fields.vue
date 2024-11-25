@@ -4,8 +4,10 @@ import type { FlowField } from '#/types/flow/index';
 import type { PropType } from 'vue';
 import { useModel } from 'vue';
 
+import { ZondiconsAddSolid } from '@vben/icons';
+
 import { setFocus, useForm } from '@cool-vue/crud';
-import { message } from 'ant-design-vue';
+import { ElMessage } from 'element-plus';
 import { assign, isEmpty } from 'lodash-es';
 
 import ToolsFields from '#/components/tools/fields.vue';
@@ -116,7 +118,7 @@ function open(item?: FlowField) {
             item?.field !== data.field
           ) {
             done();
-            return message.warning('变量名称已存在');
+            return ElMessage.warning('变量名称已存在');
           }
 
           if (item) {
@@ -136,8 +138,7 @@ function open(item?: FlowField) {
 
 <template>
   <div class="form-fields">
-    <cl-svg class="btn-icon is-rt" name="add" @click="open()" />
-
+    <ZondiconsAddSolid class="btn-icon is-rt size-6" @click="open()" />
     <div v-if="isEmpty(list)" class="empty">
       <el-text size="small">设置的输入可在工作流程中使用，</el-text>
       <el-text size="small" type="primary" @click="open()">立即添加</el-text>

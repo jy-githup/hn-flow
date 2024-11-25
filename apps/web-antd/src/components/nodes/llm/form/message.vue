@@ -1,13 +1,14 @@
 <script setup lang="ts" name="node-llm-form-content">
 import { onMounted, onUnmounted, type PropType, useModel } from 'vue';
 
+import { SvgFlowAddIcon, SvgFlowDeleteIcon } from '@vben/icons';
+
 import { last } from 'lodash-es';
 import Draggable from 'vuedraggable';
 
 import ToolsVar from '#/components/tools/var.vue';
-import { useFlow } from '#/hooks/hooks/userFlow';
 import { useCool } from '#/hooks/hooks/index';
-import { sleep } from '#/hooks/hooks/userFlow';
+import { sleep, useFlow } from '#/hooks/hooks/userFlow';
 
 const props = defineProps({
   modelValue: {
@@ -256,7 +257,8 @@ onUnmounted(() => {
 
 <template>
   <div class="form-content">
-    <cl-svg class="btn-icon is-rt" name="add" @click="add()" />
+    <!--    <cl-svg class="btn-icon is-rt" name="add" @click="add()" />-->
+    <SvgFlowAddIcon class="btn-icon is-rt size-6" name="add" @click="add()" />
 
     <Draggable
       v-model="list"
@@ -273,25 +275,25 @@ onUnmounted(() => {
           class="item textarea-item"
         >
           <div class="head">
-            <a-select
+            <el-select
               v-model="item.role"
-              :disabled="item.role == 'system'"
+              :disabled="item.role === 'system'"
               class="role"
               popper-class="cl-flow__popper"
               size="small"
             >
-              <a-select-option
+              <el-option
                 v-for="t in getRoles(item)"
                 :key="t.value"
                 :label="t.label"
                 :value="t.value"
               />
-            </a-select>
+            </el-select>
 
             <div class="op">
-              <cl-svg
-                v-if="item.role != 'system'"
-                class="btn-icon"
+              <SvgFlowDeleteIcon
+                v-if="item.role !== 'system'"
+                class="btn-icon size-6"
                 name="delete"
                 @click="remove(index)"
               />

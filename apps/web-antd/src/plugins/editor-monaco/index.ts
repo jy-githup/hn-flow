@@ -1,1 +1,1 @@
-export * from './utils/declare';
+export * from "./utils/declare";

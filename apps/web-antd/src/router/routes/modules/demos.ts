@@ -49,6 +49,7 @@ const routes: RouteRecordRaw[] = [
             name: 'FlowManage/FlowInfo',
             path: 'FlowManage/FlowInfo',
             component: () => import('#/views/demos/antd/flowInfo.vue'),
+            // component: () => import('#/modules/flow/views/info.vue'),
           },
         ],
       },

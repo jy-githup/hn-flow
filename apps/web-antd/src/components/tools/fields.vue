@@ -4,6 +4,8 @@ import type { FlowField } from '#/types/flow/index';
 import type { PropType } from 'vue';
 import { useModel } from 'vue';
 
+import { SvgFlowTextIcon } from '@vben/icons';
+
 const props = defineProps({
   modelValue: {
     type: Array as PropType<FlowField[]>,
@@ -39,8 +41,7 @@ function remove(index: number) {
       class="item"
       @click="edit(item)"
     >
-      <cl-svg :name="item.type" class="type" />
-
+      <SvgFlowTextIcon class="type size-5" />
       <div class="name">
         {{ item.field }}
         <span v-if="!disabled"> · {{ item.label }}</span>
@@ -70,8 +71,8 @@ function remove(index: number) {
     overflow: hidden;
 
     .type {
-      height: 15px;
-      width: 15px;
+      //height: 15px;
+      //width: 15px;
       margin-right: 5px;
       padding: 3px;
     }

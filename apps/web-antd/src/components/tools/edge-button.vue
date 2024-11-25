@@ -1,11 +1,9 @@
 <script setup lang="ts" name="tools-edge-button">
 import { computed } from 'vue';
 
-import { CarbonCLose } from '@vben/icons';
-
+import { CircleCloseFilled } from '@element-plus/icons-vue';
 import { BaseEdge, EdgeLabelRenderer, getBezierPath } from '@vue-flow/core';
 
-import { useCool } from '#/hooks/hooks/index';
 import { useFlow } from '#/hooks/hooks/userFlow';
 
 const props = defineProps({
@@ -48,7 +46,6 @@ const props = defineProps({
   data: Object,
 });
 
-const { refs, setRefs } = useCool();
 const flow = useFlow();
 
 const path = computed(() => getBezierPath(props as any));
@@ -58,7 +55,7 @@ const edge = computed(() => {
 });
 
 const node = computed(() => {
-  return flow.nodes.find((e) => e.id == edge.value?.source);
+  return flow.nodes.find((e) => e.id === edge.value?.source);
 });
 
 function del() {
@@ -84,34 +81,15 @@ function del() {
       }"
       class="nodrag nopan"
     >
-      <!-- <tools-nodes
-				:ref="setRefs('toolsNodes')"
-				:node="node"
-				:edge-id="id"
-				:handle="edge?.sourceHandle!"
-				is-insert
-			>
-				<el-icon
-					class="icon"
-					:class="{
-						active: refs.toolsNodes?.visible,
-						show: data?.show
-					}"
-				>
-					<circle-plus-filled />
-				</el-icon>
-			</tools-nodes> -->
-
-      <!--      <el-icon-->
-      <!--        :class="{-->
-      <!--          show: data?.show,-->
-      <!--        }"-->
-      <!--        class="icon"-->
-      <!--        @click="del"-->
-      <!--      >-->
-      <!--    -->
-      <!--      </el-icon>-->
-      <CarbonCLose class="icon" @click="del" />
+      <el-icon
+        :class="{
+          show: data?.show,
+        }"
+        class="icon"
+        @click="del"
+      >
+        <CircleCloseFilled />
+      </el-icon>
     </div>
   </EdgeLabelRenderer>
 </template>

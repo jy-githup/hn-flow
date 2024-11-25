@@ -4,8 +4,9 @@ import type { FlowNode } from '#/types/flow/index';
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
 
 import { setFocus, useForm } from '@cool-vue/crud';
-import { Button } from 'ant-design-vue';
 import { assign, cloneDeep } from 'lodash-es';
+
+import { ZondiconsAddSolid } from '@vben/icons';
 
 import { useCool } from '#/hooks/hooks/index';
 import { useFlow } from '#/hooks/hooks/userFlow';
@@ -132,9 +133,9 @@ defineExpose({
       <cl-form ref="Form" inner>
         <template #slot-next>
           <div class="next-step">
-            <Button size="small" type="text">
+            <el-button size="small" type="text">
               添加此工作流程中的下一个节点
-            </Button>
+            </el-button>
 
             <div class="link">
               <div
@@ -151,15 +152,15 @@ defineExpose({
 
                 <div v-if="item.node" class="b" @click="next(item.node)">
                   <component is="flow.node?.icon" :color="flow.node?.color" />
-                  <Button size="small" type="text">
+                  <el-button size="small" type="text">
                     {{ item.node?.label }}
-                  </Button>
+                  </el-button>
                 </div>
 
                 <ToolsNodes v-else :handle="item.value" :node="flow.node">
                   <div class="b">
-                    <ToolsIcon name="add" />
-                    <Button size="small" type="text">选择下一个节点</Button>
+                    <ZondiconsAddSolid class="size-6" />
+                    <el-button size="small" type="text">选择下一个节点</el-button>
                   </div>
                 </ToolsNodes>
 

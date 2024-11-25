@@ -1,3 +1,4 @@
+import type { Ref } from 'vue';
 import { getCurrentInstance, reactive } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
@@ -17,7 +18,7 @@ export function useRefs() {
   return { refs, setRefs };
 }
 
-export function useParent(name: string, r: any) {
+export function useParent(name: string, r: Ref) {
   const d = getCurrentInstance();
 
   if (d) {
@@ -39,6 +40,7 @@ export function useParent(name: string, r: any) {
 
 export function useCool() {
   return {
+    service: () => {},
     route: useRoute(),
     router: useRouter(),
     mitt: useMitt(),

@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { useModel } from 'vue';
 
-import { InputNumber } from "ant-design-vue";
 
 const props = defineProps({
   // eslint-disable-next-line vue/require-default-prop
@@ -31,7 +30,7 @@ const value = useModel(props, 'modelValue');
   <div class="form-input-number">
     <span v-if="prefix" class="label prefix">{{ prefix }}</span>
     <div>
-      <InputNumber
+      <el-input-number
         v-model="value"
         :max="max"
         :min="min"

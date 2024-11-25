@@ -1,6 +1,6 @@
 import type { FlowNode } from '#/types/flow/index';
 
-import { MaterialCode } from '@vben/icons';
+import { SvgFlowLlmIcon } from '@vben/icons';
 
 import FormInputNumber from '../_base/form/input-number.vue';
 import FormInputParams from '../_base/form/input-params.vue';
@@ -14,8 +14,9 @@ export default (): FlowNode => {
     group: 'AI',
     label: 'LLM',
     description: '调用大语言模型回答问题',
+    bgColor: '#409eff',
     color: '#409eff',
-    icon: MaterialCode,
+    icon: SvgFlowLlmIcon,
     component,
     isDisableDrag: true, // 是否允许拖拽（部分组件跟拖拽事件冲突，需禁用。例：伪富文本dom）
     form: {

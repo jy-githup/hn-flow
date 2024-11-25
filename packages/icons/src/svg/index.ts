@@ -12,6 +12,21 @@ const SvgBellIcon = createIconifyIcon('svg:bell');
 const SvgCakeIcon = createIconifyIcon('svg:cake');
 const SvgAntdvLogoIcon = createIconifyIcon('svg:antdv-logo');
 
+const SvgFlowBaiduIcon = createIconifyIcon('svg:baidu');
+const SvgFlowClassifyIcon = createIconifyIcon('svg:classify');
+const SvgFlowCodeIcon = createIconifyIcon('svg:code');
+const SvgFlowEndIcon = createIconifyIcon('svg:end');
+const SvgFlowJudgeIcon = createIconifyIcon('svg:judge');
+const SvgFlowKnowIcon = createIconifyIcon('svg:know');
+const SvgFlowLlmIcon = createIconifyIcon('svg:llm');
+const SvgFlowStartIcon = createIconifyIcon('svg:start');
+const SvgFlowVariableIcon = createIconifyIcon('svg:variable');
+const SvgFlowTextIcon = createIconifyIcon('svg:text');
+const SvgFlowRunIcon = createIconifyIcon('svg:run');
+const SvgFlowDeleteIcon = createIconifyIcon('svg:delete');
+const SvgFlowAddIcon = createIconifyIcon('svg:add');
+const SvgFlowMoreIcon = createIconifyIcon('svg:more');
+
 export {
   SvgAntdvLogoIcon,
   SvgAvatar1Icon,
@@ -22,4 +37,18 @@ export {
   SvgCakeIcon,
   SvgCardIcon,
   SvgDownloadIcon,
+  SvgFlowAddIcon,
+  SvgFlowBaiduIcon,
+  SvgFlowClassifyIcon,
+  SvgFlowCodeIcon,
+  SvgFlowDeleteIcon,
+  SvgFlowEndIcon,
+  SvgFlowJudgeIcon,
+  SvgFlowKnowIcon,
+  SvgFlowLlmIcon,
+  SvgFlowMoreIcon,
+  SvgFlowRunIcon,
+  SvgFlowStartIcon,
+  SvgFlowTextIcon,
+  SvgFlowVariableIcon,
 };

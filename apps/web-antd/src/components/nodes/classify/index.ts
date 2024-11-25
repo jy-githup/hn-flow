@@ -1,7 +1,10 @@
 import type { FlowNode } from '#/types/flow/index';
 
+import { SvgFlowClassifyIcon } from '@vben/icons';
+
 import FormInputParams from '../_base/form/input-params.vue';
 import FormText from '../_base/form/text.vue';
+
 // import FormModel from '../llm/form/model.vue';
 import FormClassify from './form/classify.vue';
 import component from './index.vue';
@@ -11,7 +14,9 @@ export default (): FlowNode => {
     group: 'AI',
     label: '分类器',
     description: '根据内容调用 LLM 进行智能分类',
+    bgColor: '#409eff',
     color: '#409eff',
+    icon: SvgFlowClassifyIcon,
     component,
     form: {
       items: [

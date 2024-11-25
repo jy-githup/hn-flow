@@ -1,5 +1,9 @@
 // import { ctx } from 'virtual:ctx';
-const ctx = {};
+// debugger
+// import { useViteContext } from 'vite/client';
+const ctx = {
+  serviceLang: 'Java',
+};
 
 const Java = {
   base: `import java.util.Map;

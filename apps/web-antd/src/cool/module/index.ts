@@ -2,10 +2,13 @@ import type { Module } from '../types';
 
 import { hmr } from '../hooks';
 
-const ctx = {};
+const ctx = {
+  serviceLang: 'Java',
+};
 
 // 模块列表
 const list: Module[] = hmr.getData('modules', []);
+
 
 // 模块对象
 const module = {
@@ -26,5 +29,4 @@ const module = {
     return this.req;
   },
 };
-
 export { module };

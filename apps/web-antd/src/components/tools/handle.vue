@@ -77,32 +77,28 @@ function onValidConnection({
 
 <template>
   <ToolsNodes :disabled="true || isLink" :handle="id" :node="node">
-    <span class="rod"></span>
-    <FluentPageRightArrow class="icon size-5" />
-    <Handle
-      :id="id"
-      :is-valid-connection="onValidConnection"
-      :position="align"
-      :type="type"
-    />
-    <!--    <el-icon-->
-    <!--      :class="[-->
-    <!--        `is-${type}`,-->
-    <!--        {-->
-    <!--          'is-link': isLink,-->
-    <!--        },-->
-    <!--      ]"-->
-    <!--      :style="[position]"-->
-    <!--      class="tools-handle"-->
-    <!--      @click.stop-->
-    <!--    >-->
-    <!--      <span class="rod"></span>-->
+    <el-icon
+      class="tools-handle"
+      :class="[
+				`is-${type}`,
+				{
+					'is-link': isLink
+				}
+			]"
+      :style="[position]"
+      @click.stop
+    >
+      <span class="rod"></span>
+      <!-- <circle-plus-filled class="icon" /> -->
+      <FluentPageRightArrow class="icon" />
 
-    <!--      &lt;!&ndash; <circle-plus-filled class="icon" /> &ndash;&gt;-->
-    <!--      <cl-svg class="icon" name="arrow-right" />-->
-
-    <!--      -->
-    <!--    </el-icon>-->
+      <handle
+        :id="id"
+        :type="type"
+        :position="align"
+        :is-valid-connection="onValidConnection"
+      />
+    </el-icon>
   </ToolsNodes>
 </template>
 

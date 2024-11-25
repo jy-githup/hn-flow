@@ -18,12 +18,12 @@ for (const i in files) {
   if (d && d.enable !== false) {
     const configWidth = d.form?.width || '400px';
     const width = `${Number.parseFloat(configWidth) + 30}px`;
-
     CustomNodes.value.push({
       ...d,
       type,
       name: `node-${type}`,
       cardWidth: width,
+      // icon: type,
     });
   }
 }

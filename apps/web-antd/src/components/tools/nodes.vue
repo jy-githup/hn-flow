@@ -214,7 +214,7 @@ defineExpose({
 </script>
 
 <template>
-  <a-popover
+  <el-popover
     :ref="setRefs('popover')"
     :disabled="disabled"
     :offset="5"
@@ -226,61 +226,61 @@ defineExpose({
     @hide="onHide"
     @show="onShow"
   >
-    <template #content>
-      <div class="tools-nodes">
-        <div class="search">
-          <a-input
-            v-model="keyWord"
-            :prefix-icon="iconamoonSearchThin"
-            clearable
-            placeholder="搜索节点"
-          />
-        </div>
+    <template #reference>
+      <slot></slot>
+    </template>
+    <div class="tools-nodes">
+      <div class="search">
+        <el-input
+          v-model="keyWord"
+          :prefix-icon="iconamoonSearchThin"
+          clearable
+          placeholder="搜索节点"
+        />
+      </div>
 
-        <div style="max-height: 400px;overflow: hidden;overflow-y: auto;">
-          <div class="wrap">
-            <div v-for="a in list" :key="a.label" class="group">
-              <p v-if="a.label" class="label">{{ a.label }}</p>
+      <div style="max-height: 400px; overflow: hidden; overflow-y: auto">
+        <div class="wrap">
+          <div v-for="a in list" :key="a.label" class="group">
+            <p v-if="a.label" class="label">{{ a.label }}</p>
 
-              <div class="list">
-                <a-popover
-                  v-for="b in a.children"
-                  :key="b.label"
-                  :hide-after="0"
-                  :offset="10"
-                  :persistent="false"
-                  :popper-style="{
+            <div class="list">
+              <el-popover
+                v-for="b in a.children"
+                :key="b.label"
+                :hide-after="0"
+                :offset="10"
+                :persistent="false"
+                :popper-style="{
                   padding: '0px',
                 }"
-                  placement="right"
-                  popper-class="cl-flow__popper"
-                  width="200px"
-                >
-                  <template #content>
-                    <div class="tools-nodes__description">
-                      <div class="inner">
-                        <component :is="b.icon" :color="b.color" :size="22" />
-                        <span>{{ b.label }}</span>
-                      </div>
-
-                      <p class="desc">{{ b.description || '暂无描述' }}</p>
-                    </div>
-                  </template>
+                placement="right"
+                popper-class="cl-flow__popper"
+                width="200px"
+              >
+                <template #reference>
                   <div class="item" @click="select(b)">
                     <component :is="b.icon" :color="b.color" :size="22" />
                     <span>{{ b.label }}</span>
                   </div>
-                </a-popover>
-              </div>
-            </div>
+                </template>
+                <div class="tools-nodes__description">
+                  <div class="inner">
+                    <component :is="b.icon" :color="b.color" :size="22" />
+                    <span>{{ b.label }}</span>
+                  </div>
 
-            <div v-if="isEmpty(list)" class="empty">未找到匹配项</div>
+                  <p class="desc">{{ b.description || '暂无描述' }}</p>
+                </div>
+              </el-popover>
+            </div>
           </div>
+
+          <div v-if="isEmpty(list)" class="empty">未找到匹配项</div>
         </div>
       </div>
-    </template>
-    <slot></slot>
-  </a-popover>
+    </div>
+  </el-popover>
 </template>
 
 <style lang="scss" scoped>

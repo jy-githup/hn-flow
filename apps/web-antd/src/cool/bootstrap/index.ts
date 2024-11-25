@@ -5,7 +5,7 @@ import { createPinia } from 'pinia';
 import { Loading } from '../utils';
 import { createModule } from './module';
 
-export async function bootstrap1(app: App) {
+export async function coolBootstrap(app: App) {
   // pinia
   app.use(createPinia());
 

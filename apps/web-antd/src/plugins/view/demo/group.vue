@@ -1,19 +1,16 @@
-<template>
-	<div class="wrap">
-		<dict-list />
-	</div>
-</template>
-
 <script lang="ts" setup>
-import { useCool } from "#/hooks/hooks/index";
-import DictList from "/dict/views/list.vue";
-
-const { service } = useCool();
+import DictList from '#/dict/views/list.vue';
 </script>
+
+<template>
+  <div class="wrap">
+    <DictList />
+  </div>
+</template>
 
 <style lang="scss" scoped>
 .wrap {
-	height: 600px;
-	border: 1px solid var(--el-border-color);
+  height: 600px;
+  border: 1px solid var(--el-border-color);
 }
 </style>

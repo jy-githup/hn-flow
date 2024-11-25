@@ -5,11 +5,13 @@ import hnFlow from '#/components/flow/index.vue';
 
 const route = useRoute();
 
-const flowId = Number(route.query?.id || '0');
+const flowId = route.query?.id || '0';
+
+const flowLabel = route.query?.label || '';
 </script>
 
 <template>
-  <hnFlow :flow-id="flowId" />
+  <hnFlow :flow-id="flowId" :flow-label="flowLabel" />
 </template>
 
 <style scoped lang="scss"></style>

@@ -61,24 +61,24 @@ function setupAccessGuard(router: Router) {
     }
 
     // accessToken 检查
-    if (!accessStore.accessToken) {
-      // 明确声明忽略权限访问权限，则可以访问
-      if (to.meta.ignoreAccess) {
-        return true;
-      }
-
-      // 没有访问权限，跳转登录页面
-      if (to.fullPath !== LOGIN_PATH) {
-        return {
-          path: LOGIN_PATH,
-          // 如不需要，直接删除 query
-          query: { redirect: encodeURIComponent(to.fullPath) },
-          // 携带当前跳转的页面，登录后重新跳转该页面
-          replace: true,
-        };
-      }
-      return to;
-    }
+    // if (!accessStore.accessToken) {
+    //   // 明确声明忽略权限访问权限，则可以访问
+    //   if (to.meta.ignoreAccess) {
+    //     return true;
+    //   }
+    //
+    //   // 没有访问权限，跳转登录页面
+    //   if (to.fullPath !== LOGIN_PATH) {
+    //     return {
+    //       path: LOGIN_PATH,
+    //       // 如不需要，直接删除 query
+    //       query: { redirect: encodeURIComponent(to.fullPath) },
+    //       // 携带当前跳转的页面，登录后重新跳转该页面
+    //       replace: true,
+    //     };
+    //   }
+    //   return to;
+    // }
 
     // 是否已经生成过动态路由
     if (accessStore.isAccessChecked) {
@@ -116,9 +116,9 @@ function setupAccessGuard(router: Router) {
  * @param router
  */
 function createRouterGuard(router: Router) {
-  /** 通用 */
+  // /** 通用 */
   setupCommonGuard(router);
-  /** 权限访问 */
+  // /** 权限访问 */
   setupAccessGuard(router);
 }
 

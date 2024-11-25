@@ -1,6 +1,8 @@
 <script setup lang="ts" name="node-problem-form-classify">
 import { onMounted, type PropType, useModel, watch } from 'vue';
 
+import { Input } from 'ant-design-vue';
+
 import { useFlow } from '#/hooks/hooks/userFlow';
 
 const props = defineProps({
@@ -60,7 +62,7 @@ onMounted(() => {
       <div v-for="(item, index) in list" :key="index" class="textarea-item">
         <cl-svg class="btn-icon" name="delete" @click="remove(index)" />
 
-        <a-input
+        <Input
           v-model="list[index]"
           :autosize="{
             minRows: 2,

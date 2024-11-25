@@ -17,7 +17,6 @@ const files = import.meta.glob(
 
 // 模块列表
 module.list = hmr.getData('modules', []);
-
 // 解析
 for (const i in files) {
   // 分割
@@ -42,23 +41,30 @@ for (const i in files) {
   };
 
   // 配置
-  if (action == 'config.ts') {
-    d.value = v;
-  }
-  // 服务
-  else if (action == 'service') {
-    const s = new (v as any)();
+  switch (action) {
+    case 'config.ts': {
+      d.value = v;
 
-    if (s) {
-      d.services?.push({
-        path: s.namespace,
-        value: s,
-      });
+      break;
     }
-  }
-  // 指令
-  else if (action == 'directives') {
-    d.directives?.push({ name: n, value: v as Directive });
+    case 'directives': {
+      d.directives?.push({ name: n, value: v as Directive });
+
+      break;
+    }
+    case 'service': {
+      const s = new (v as any)();
+
+      if (s) {
+        d.services?.push({
+          path: s.namespace,
+          value: s,
+        });
+      }
+
+      break;
+    }
+    // No default
   }
 
   if (!m) {
@@ -68,6 +74,7 @@ for (const i in files) {
 
 // 创建
 export function createModule(app: App) {
+  console.log(module.list);
   // 排序
   module.list.forEach((e) => {
     const d = isFunction(e.value) ? e.value(app) : e.value;
@@ -84,11 +91,12 @@ export function createModule(app: App) {
   const list = orderBy(module.list, 'order', 'desc').map((e) => {
     // 初始化
     e.install?.(app, e.options);
-
     // 注册组件
     e.components?.forEach(async (c) => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       const v = await (isFunction(c) ? c() : c);
+
       const n = v.default || v;
 
       if (n.name) {

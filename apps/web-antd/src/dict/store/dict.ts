@@ -6,8 +6,8 @@ import { defineStore } from 'pinia';
 import { Dict } from '../types';
 import { deepFind } from '../utils';
 
-import { service } from '/@/cool';
-import { deepTree } from '/@/cool/utils';
+import { service } from '#/cool';
+import { deepTree } from '#/cool/utils';
 
 const useDictStore = defineStore('dict', () => {
   // 对象数据

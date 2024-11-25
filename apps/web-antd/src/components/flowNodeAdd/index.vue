@@ -90,6 +90,7 @@ function mouseup(e: MouseEvent) {
   document.removeEventListener('mousemove', mousemove);
   document.removeEventListener('mouseup', mouseup);
 }
+
 </script>
 
 <template>
@@ -124,7 +125,17 @@ function mouseup(e: MouseEvent) {
               class="cl-flow__tools-node-add-item item"
               @mousedown="(e) => mousedown(e, b)"
             >
-              <component :is="b.icon" :color="b.color" class="size-5" />
+              <div
+                :style="`background: ${b.bgColor || 'rgb(64, 158, 255)'};`"
+                class="iconCompontentBox"
+              >
+                <component
+                  :is="b.icon"
+                  class="size-4"
+                  color="#ffffff"
+                  style="fill: currentColor"
+                />
+              </div>
               <div class="det">
                 <p>{{ b.label }}</p>
                 <p>{{ b.description }}</p>
@@ -152,7 +163,7 @@ function mouseup(e: MouseEvent) {
     z-index: 10;
     width: 260px;
     height: calc(100% - 50px);
-    background-color: #2c3142;
+    background-color: hsl(var(--background));
     border-radius: 6px;
     box-shadow: 0 0 10px 1px rgb(16 24 40 / 5%);
     transition: all 0.3s;
@@ -228,6 +239,7 @@ function mouseup(e: MouseEvent) {
 
   .det {
     margin-left: 10px;
+    flex: 1;
 
     p {
       font-size: 13px;
@@ -251,5 +263,16 @@ function mouseup(e: MouseEvent) {
   &:not(.is-drag):hover {
     background-color: var(--el-fill-color-light);
   }
+}
+.iconCompontentBox {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  color: #ffffff;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
 }
 </style>

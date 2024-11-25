@@ -74,9 +74,9 @@ function createRequestClient(baseURL: string) {
     fulfilled: (response) => {
       const { data: responseData, status } = response;
 
-      const { code, data } = responseData;
-      if (status >= 200 && status < 400 && code === 0) {
-        return data;
+      const { code } = responseData;
+      if (status >= 200 && status < 400 && code === '000000') {
+        return responseData;
       }
 
       throw Object.assign({}, response, { response });

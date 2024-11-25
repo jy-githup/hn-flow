@@ -11,7 +11,10 @@ import FlowHeader from '#/components/flowHeader/index.vue';
 import FlowNodeAdd from '#/components/flowNodeAdd/index.vue';
 import ToolsCard from '#/components/tools/card.vue';
 import ToolsContextMenu from '#/components/tools/context-menu.vue';
-import ToolsEdgeButton from '#/components/tools/edge-button.vue'
+import ToolsControls from '#/components/tools/controls.vue';
+import ToolsEdgeButton from '#/components/tools/edge-button.vue';
+import ToolsPanel from '#/components/tools/panel/index.vue';
+import ToolsSelection from '#/components/tools/selection.vue';
 import { useCool } from '#/hooks/hooks/index';
 import { useFlow } from '#/hooks/hooks/userFlow';
 
@@ -23,7 +26,11 @@ import '@vue-flow/node-resizer/dist/style.css';
 
 const props = defineProps({
   flowId: {
-    type: Number,
+    type: String,
+    required: true,
+  },
+  flowLabel: {
+    type: String,
     required: true,
   },
 });
@@ -34,7 +41,7 @@ const flow = useFlow();
 // 加载完
 function onPaneReady() {
   flow.init();
-  flow.get(props.flowId!);
+  flow.get(props.flowId!, props.flowLabel!);
 }
 
 // 滚轮滚动
@@ -184,10 +191,10 @@ onBeforeRouteLeave((to, from, next) => {
       <FlowHeader />
 
       <!-- 自定义选择框 -->
-      <!-- <ToolsSelection /> -->
+      <ToolsSelection />
 
       <!-- 自定义面板 -->
-      <!-- <ToolsPanel /> -->
+      <ToolsPanel />
 
       <!-- 自定义节点添加面板 -->
       <FlowNodeAdd />
@@ -196,7 +203,7 @@ onBeforeRouteLeave((to, from, next) => {
       <ToolsContextMenu :ref="setRefs('contextMenu')" />
 
       <!-- 自定义控制器 -->
-      <!-- <ToolsControls /> -->
+      <ToolsControls />
 
       <!-- 自定义连接线按钮 -->
       <template

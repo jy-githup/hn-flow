@@ -3,10 +3,11 @@ import type { FlowField } from '#/types/flow/index';
 
 import { computed, reactive, ref, useModel } from 'vue';
 import type { PropType } from 'vue';
+
 import { CarbonCLose } from '@vben/icons';
 
 import { SearchOutlined } from '@ant-design/icons-vue';
-import { message } from 'ant-design-vue';
+import { Button, Input, message, Modal, Tooltip, Popover } from 'ant-design-vue';
 import { isEmpty } from 'lodash-es';
 
 import { useCool } from '#/hooks/hooks/index';
@@ -296,72 +297,62 @@ defineExpose({
 </script>
 
 <template>
-  <a-popover
+  <el-popover
     :ref="setRefs('popover')"
-    :offset="5"
-    :popper-style="{
-      padding: '0',
-    }"
-    placement="bottom-start"
-    popper-class="cl-flow__popper"
     trigger="click"
     width="220px"
-    @hide="onHide"
+    placement="bottom-start"
+    popper-class="cl-flow__popper"
+    :popper-style="{
+			padding: '0'
+		}"
+    :offset="5"
     @show="onShow"
+    @hide="onHide"
   >
     <template #reference>
-      <div v-if="showPicker" class="inner-item">
-        <a-tooltip v-if="inputable" content="自定义输入">
+      <div class="inner-item" v-if="showPicker">
+        <el-tooltip content="自定义输入" v-if="inputable">
           <cl-svg
-            :style="{ margin: '0 5px 0 -5px' }"
-            class="btn-icon is-bg"
             name="t"
+            class="btn-icon is-bg"
+            :style="{ margin: '0 5px 0 -5px' }"
             @click.stop="input.open"
           />
-        </a-tooltip>
+        </el-tooltip>
 
-        <span v-if="text" class="text">{{ text }}</span>
-        <span v-else class="placeholder">{{
-          value ? '输入值' : '选择变量'
-        }}</span>
-        <CarbonCLose  v-if="text"  class="btn-icon close" @click.stop="clear" />
+        <span class="text" v-if="text">{{ text }}</span>
+        <span class="placeholder" v-else>{{ value ? "输入值" : "选择变量" }}</span>
+
+        <cl-svg name="close" class="btn-icon close" @click.stop="clear" v-if="text" />
       </div>
 
-      <div
-        v-else
-        :ref="setRefs('btn')"
-        :style="{ position }"
-        class="tools-var__btn"
-      ></div>
+      <div class="tools-var__btn" :ref="setRefs('btn')" :style="{ position }" v-else></div>
     </template>
 
     <div class="tools-var">
       <div class="search">
-        <a-input
-          v-model="keyWord"
-          :prefix-icon="SearchOutlined"
-          placeholder="搜索变量"
-        />
+        <el-input v-model="keyWord" placeholder="搜索变量" :prefix-icon="Search" />
       </div>
 
-      <div style="max-height: 500px;overflow: hidden;overflow-y: auto;">
+      <el-scrollbar max-height="500px">
         <div
+          class="list"
           :ref="setRefs('list')"
           :tabindex="0"
-          class="list"
           @keydown.stop.prevent="onKeyDown"
         >
-          <div v-for="(item, index) in list" :key="index" class="group">
+          <div class="group" v-for="(item, index) in list" :key="index">
             <p class="label">{{ item.label }}</p>
 
             <div
+              class="item"
               v-for="param in item.params"
               :key="param.field"
               :class="{
-                active: `${item.id}_${param.field}` === `${nodeId}_${field}`,
-                focus: focusKey === `${item.id}_${param.field}`,
-              }"
-              class="item"
+								active: `${item.id}_${param.field}` == `${nodeId}_${field}`,
+								focus: focusKey == `${item.id}_${param.field}`
+							}"
               @click="select(param, item)"
             >
               <cl-svg class="icon" name="var" />
@@ -371,26 +362,26 @@ defineExpose({
           </div>
         </div>
 
-        <div v-if="isEmpty(list)" class="empty">未找到匹配项</div>
-      </div>
+        <div class="empty" v-if="isEmpty(list)">未找到匹配项</div>
+      </el-scrollbar>
     </div>
 
     <!-- 自定义输入 -->
-    <a-modal v-model="input.visible" title="自定义输入">
-      <a-input
+    <el-dialog v-model="input.visible" title="自定义输入">
+      <el-input
+        type="textarea"
         v-model="input.value"
         :rows="20"
         placeholder="请输入"
-        type="textarea"
         @change="input.onChange"
       />
 
       <template #footer>
-        <a-button @click="input.close">取消</a-button>
-        <a-button type="success" @click="input.save">保存</a-button>
+        <el-button @click="input.close">取消</el-button>
+        <el-button type="success" @click="input.save">保存</el-button>
       </template>
-    </a-modal>
-  </a-popover>
+    </el-dialog>
+  </el-popover>
 </template>
 
 <style lang="scss" scoped>

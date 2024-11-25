@@ -3,9 +3,9 @@ import { ref } from 'vue';
 
 import {
   BiCopy,
-  CodiconRunAll,
+  SvgFlowRunIcon,
   IonAdd,
-  MaterialDeleteOutline,
+  SvgFlowDeleteIcon,
   MaterialGridOnSharp,
   MingcuteCopyLine,
 } from '@vben/icons';
@@ -61,7 +61,7 @@ function onPane(e: MouseEvent) {
       },
       {
         label: '运行',
-        suffixIcon: CodiconRunAll,
+        suffixIcon: SvgFlowRunIcon,
         callback(done) {
           mitt.emit('flow.runOpen');
           done();
@@ -85,7 +85,7 @@ function onPane(e: MouseEvent) {
       },
       {
         label: '清空节点',
-        suffixIcon: MaterialDeleteOutline,
+        suffixIcon: SvgFlowDeleteIcon,
         callback(done) {
           Modal.confirm({
             type: 'warning',
@@ -123,7 +123,7 @@ function onNode({ event, node }: NodeMouseEvent) {
       },
       {
         label: '删除',
-        suffixIcon: MaterialDeleteOutline,
+        suffixIcon: SvgFlowDeleteIcon,
         hidden: node.type === 'start',
         callback(done) {
           flow.removeNodes(node);

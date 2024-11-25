@@ -3,9 +3,11 @@ import type { FlowField } from '#/types/flow/index';
 
 import { type PropType, reactive, useModel } from 'vue';
 
-import { MaterialDeleteOutline, MingcuteFullscreenLine } from '@vben/icons';
+import { MingcuteFullscreenLine, SvgFlowDeleteIcon } from '@vben/icons';
 
-import { message } from 'ant-design-vue';
+import { ElMessage } from 'element-plus';
+
+import { SvgFlowAddIcon } from "@vben/icons";
 
 const props = defineProps({
   modelValue: {
@@ -88,7 +90,7 @@ const input = reactive({
 
   save() {
     if (!input.value) {
-      return message.warning('请输入内容');
+      return ElMessage.warning('请输入内容');
     }
 
     if (input.data) {
@@ -103,10 +105,11 @@ const input = reactive({
 <template>
   <div class="form-input-params">
     <cl-svg v-if="op" class="btn-icon is-rt" name="add" @click="add()" />
+    <SvgFlowAddIcon v-if="op" class="btn-icon is-rt size-6" @click="add()" />
 
     <div v-for="(item, index) in list" :key="index" class="item">
       <div class="d">
-        <a-input
+        <el-input
           v-model="item.field"
           :disabled="onDisabled(item, 'field')"
           class="name"
@@ -116,39 +119,34 @@ const input = reactive({
 
       <div class="d">
         <template v-if="typeInput">
-          <a-input v-model="item.type" placeholder="请输入描述">
+          <el-input v-model="item.type" placeholder="请输入描述">
             <template #prefix>
               <MingcuteFullscreenLine
-                class="btn-icon"
+                class="btn-icon size-6"
                 @click="input.open(item)"
               />
             </template>
-          </a-input>
+          </el-input>
         </template>
-        <a-select
+        <el-select
           v-else
           v-model="item.type"
           :disabled="onDisabled(item, 'type')"
           placeholder="类型"
         >
-          <a-select-option
-            v-for="t in options.type"
-            :key="t"
-            :label="t"
-            :value="t"
-          />
-        </a-select>
+          <el-option v-for="t in options.type" :key="t" :label="t" :value="t" />
+        </el-select>
       </div>
-      <MaterialDeleteOutline
+      <SvgFlowDeleteIcon
         v-if="op"
-        class="btn-icon"
+        class="btn-icon size-6"
         @click="remove(index)"
       />
     </div>
 
     <!-- 自定义输入 -->
-    <a-modal v-model="input.visible" title="自定义输入">
-      <a-input
+    <el-dialog v-model="input.visible" title="自定义输入">
+      <el-input
         v-model="input.value"
         :rows="20"
         placeholder="请输入"
@@ -156,10 +154,10 @@ const input = reactive({
       />
 
       <template #footer>
-        <a-button @click="input.close">取消</a-button>
-        <a-button type="success" @click="input.save">保存</a-button>
+        <el-button @click="input.close">取消</el-button>
+        <el-button type="success" @click="input.save">保存</el-button>
       </template>
-    </a-modal>
+    </el-dialog>
   </div>
 </template>
 

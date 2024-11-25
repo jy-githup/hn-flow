@@ -3,8 +3,7 @@ import type { Connection } from '@vue-flow/core';
 import type { FlowEdge, FlowField, FlowNode } from '#/types/flow';
 
 import { computed, ref, shallowRef } from 'vue';
-
-import { MaterialGridOnSharp } from '@vben/icons';
+import { useRouter } from 'vue-router';
 
 import { useVueFlow } from '@vue-flow/core';
 import {
@@ -19,9 +18,12 @@ import {
 } from 'lodash-es';
 import { defineStore } from 'pinia';
 
+import { getFlowInfoApi, saveFlowApi } from '#/api/flowManage/index';
 import { CustomNodes } from '#/components/nodes/index';
 
 import { useCool } from './index';
+
+const router = useRouter();
 
 const offset = {
   x: 400,
@@ -47,7 +49,10 @@ export const useFlow = () => {
   const { mitt } = useCool();
   const store = defineStore(`flow-${vueFlow.id}`, () => {
     // 所有节点
-    const nodes = computed(() => vueFlow.nodes.value as FlowNode[]);
+    const nodes = computed(() => {
+      console.log('vueFlow.nodes.value', vueFlow.nodes.value);
+      return vueFlow.nodes.value as FlowNode[];
+    });
 
     // 所有线
     const edges = computed(() => vueFlow.edges.value as FlowEdge[]);
@@ -58,7 +63,6 @@ export const useFlow = () => {
     // 选中节点
     function setNode(data: any) {
       node.value = data;
-
       mitt.emit('flow.setNode', node.value);
     }
 
@@ -585,65 +589,26 @@ export const useFlow = () => {
     const info = ref<any>();
 
     // 获取
-    async function get(flowId?: number) {
+    async function get(flowId?: number, flowLabel?: string) {
+      console.log(`传递的id：：：：：：${flowId}`);
       await req;
-      const res: any = {
-        flowId,
-        id: 9,
-        createTime: '2024-11-19 15:59:00',
-        updateTime: '2024-11-19 17:48:14',
-        name: '测试新增',
-        label: '1',
-        description: null,
-        status: 1,
-        version: 1,
-        draft: {
-          nodes: [
-            {
-              enable: null,
-              id: '1',
-              label: '开始',
-              type: 'start',
-              icon: 'start',
-              name: 'node-start',
-              position: {
-                x: 100,
-                y: 100,
-              },
-              form: null,
-              handle: {
-                target: false,
-                source: null,
-                next: [],
-              },
-              data: {
-                inputParams: [
-                  {
-                    nodeId: '1',
-                    name: 'content',
-                    nodeType: 'start',
-                    field: 'content',
-                    type: 'text',
-                    required: true,
-                    defaultValue: null,
-                    value: null,
-                  },
-                ],
-                outputParams: [],
-                options: null,
-              },
-            },
-          ],
-          edges: [],
-        },
-        data: null,
-        releaseTime: null,
-      };
-      // 还原节点
-      restore(res.draft);
-      // 开始节点
-      if (isEmpty(nodes.value)) {
-        def();
+      const res = await getFlowInfoApi(flowId, flowLabel);
+      if (res.data) {
+        info.value = res.data;
+        // 还原节点
+        restore(res.data.draft);
+        // 开始节点
+        if (isEmpty(nodes.value)) {
+          def();
+        }
+      } else {
+        // ElMessageBox.alert('流程不存在或异常，请重新选择。', '提示', {
+        //   callback() {
+        //     router.push({
+        //       name: 'flowManage',
+        //     });
+        //   },
+        // });
       }
     }
 
@@ -654,7 +619,9 @@ export const useFlow = () => {
      * @returns
      */
     function extractData(nodes: any, edges: any) {
-      const nodesResult = (nodes as FlowNode[]).map((e: any) => {
+      const nodesResult = (nodes as FlowNode[]).map((item: any) => {
+        const e = { ...item };
+        delete e.icon;
         // 开始节点
         if (e.type === 'start') {
           e.data?.inputParams?.forEach((p: any) => {
@@ -713,15 +680,15 @@ export const useFlow = () => {
         nodes,
         edges,
       );
-
-      // req = service.flow.info.update({
-      //   id: info.value?.id,
-      //   draft: {
-      //     nodes: nodesResult,
-      //     edges: edgesResult,
-      //     viewport
-      //   }
-      // });
+      const requestData = {
+        id: info.value?.id,
+        draft: {
+          nodes: nodesResult,
+          edges: edgesResult,
+          viewport,
+        },
+      };
+      req = saveFlowApi(requestData);
       req = Promise.resolve({
         nodes: nodesResult,
         edges: edgesResult,
@@ -757,7 +724,7 @@ export const useFlow = () => {
               e.validator = cn.validator;
               e.cardWidth = width;
               if (cn.icon) {
-                e.icon = cn.icon
+                e.icon = cn.icon;
               }
             }
           });
