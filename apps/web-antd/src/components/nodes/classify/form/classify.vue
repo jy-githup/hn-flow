@@ -1,7 +1,7 @@
 <script setup lang="ts" name="node-problem-form-classify">
 import { onMounted, type PropType, useModel, watch } from 'vue';
 
-import { Input } from 'ant-design-vue';
+import { SvgFlowAddIcon, SvgFlowDeleteIcon } from '@vben/icons';
 
 import { useFlow } from '#/hooks/hooks/userFlow';
 
@@ -56,13 +56,13 @@ onMounted(() => {
 
 <template>
   <div class="form-classify">
-    <cl-svg class="btn-icon is-rt" name="add" @click="add()" />
+    <SvgFlowAddIcon class="btn-icon is-rt size-6" @click="add()" />
 
     <div class="list">
       <div v-for="(item, index) in list" :key="index" class="textarea-item">
-        <cl-svg class="btn-icon" name="delete" @click="remove(index)" />
+        <SvgFlowDeleteIcon class="btn-icon size-6" @click="remove(index)" />
 
-        <Input
+        <el-input
           v-model="list[index]"
           :autosize="{
             minRows: 2,

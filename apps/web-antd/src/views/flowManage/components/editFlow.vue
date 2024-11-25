@@ -1,10 +1,14 @@
 <script setup lang="ts">
+import { ref } from 'vue';
+
 import { useVbenModal } from '@vben/common-ui';
 
 import { message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
-import { addFlowApi } from '#/api/flowManage/index';
+import { addFlowApi, updateFlowApi } from '#/api/flowManage';
+
+const emit = defineEmits(['confirm']);
 
 const [Modal, modalApi] = useVbenModal({
   draggable: true,
@@ -12,19 +16,18 @@ const [Modal, modalApi] = useVbenModal({
   footer: false,
 });
 
-const emit = defineEmits(['confirm']);
-
-const openModol = () => {
-  modalApi.open();
-};
+const currentData = ref({});
 
 const closeModel = () => {
+  currentData.value = {};
   modalApi.close();
 };
 
 const onSubmit = async (values: Record<string, any>) => {
   try {
-    const res = await addFlowApi({
+    const api = currentData.value.id ? updateFlowApi : addFlowApi;
+    const res = await api({
+      ...currentData.value,
       ...values,
       pagedQueryInfo: {
         index: 1,
@@ -41,7 +44,7 @@ const onSubmit = async (values: Record<string, any>) => {
   }
 };
 
-const [Form] = useVbenForm({
+const [Form, formApi] = useVbenForm({
   layout: 'horizontal',
   // 提交函数
   handleSubmit: onSubmit,
@@ -77,6 +80,8 @@ const [Form] = useVbenForm({
       component: 'Switch',
       componentProps: {
         class: 'w-auto',
+        checkedValue: 1,
+        unCheckedValue: 0,
       },
       fieldName: 'status',
       label: '状态',
@@ -95,6 +100,14 @@ const [Form] = useVbenForm({
     content: '取消',
   },
 });
+
+const openModol = (params = {}) => {
+  if (params.id) {
+    currentData.value = params;
+    formApi.setValues(params);
+  }
+  modalApi.open();
+};
 
 defineExpose({
   openModol,

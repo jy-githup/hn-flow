@@ -10,7 +10,7 @@ import { isEmpty, isString, last } from 'lodash-es';
 import { startFlowApi } from '#/api/flowManage';
 import { useCool } from '#/hooks/hooks/index';
 import { useFlow } from '#/hooks/hooks/userFlow';
-import { useBase } from '#/modules/base';
+import { useBase } from '#/components/base';
 
 const { mitt, refs, setRefs } = useCool();
 const flow = useFlow();
@@ -255,7 +255,7 @@ const test = reactive({
     //   return new Response(stream);
     // }
     // 调试运行
-    fetch(`api/flow/debug`, {
+    fetch(`/api/flow/debug`, {
       method: 'POST',
       headers: {
         Authorization: user.token,

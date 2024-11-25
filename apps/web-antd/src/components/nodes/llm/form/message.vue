@@ -257,7 +257,6 @@ onUnmounted(() => {
 
 <template>
   <div class="form-content">
-    <!--    <cl-svg class="btn-icon is-rt" name="add" @click="add()" />-->
     <SvgFlowAddIcon class="btn-icon is-rt size-6" name="add" @click="add()" />
 
     <Draggable

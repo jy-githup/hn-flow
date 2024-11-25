@@ -8,9 +8,11 @@ import { useDark } from '@vueuse/core';
 import { ElMessage } from 'element-plus';
 
 import { storage } from '#/cool';
-import { useBase } from '#/modules/base';
+import { useBase } from '#/components/base';
 
 import { setTheme, themes } from '../utils';
+
+import { SvgFlowIconDiscoverIcon } from "@vben/icons";
 
 const { menu } = useBase();
 
@@ -69,11 +71,11 @@ function setTransition(val: any) {
 <template>
   <div class="cl-theme" @click="open">
     <el-badge is-dot type="primary">
-      <cl-svg :size="16" name="icon-discover" />
+      <SvgFlowIconDiscoverIcon class="size-6" />
     </el-badge>
   </div>
 
-  <div v-if="theme.name == 'default'" class="cl-theme-dark">
+  <div v-if="theme.name === 'default'" class="cl-theme-dark">
     <el-switch
       v-model="isDark"
       :active-icon="Moon"

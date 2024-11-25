@@ -1,7 +1,7 @@
 import type { Theme } from '../types';
 
 import { storage } from '#/cool';
-import { useBase } from '#/modules/base';
+import { useBase } from '#/components/base';
 
 function mix(color1: string, color2: string, weight: number) {
   weight = Math.max(Math.min(Number(weight), 1), 0);

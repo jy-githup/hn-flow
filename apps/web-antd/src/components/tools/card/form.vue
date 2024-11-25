@@ -127,7 +127,7 @@ defineExpose({
 </script>
 
 <template>
-  <!--   v-if="visible && flow.node" -->
+  <!--     v-if="visible && flow.node" -->
   <div class="tools-card-form nodrag">
     <div class="form">
       <cl-form ref="Form" inner>

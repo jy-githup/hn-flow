@@ -104,7 +104,6 @@ const input = reactive({
 
 <template>
   <div class="form-input-params">
-    <cl-svg v-if="op" class="btn-icon is-rt" name="add" @click="add()" />
     <SvgFlowAddIcon v-if="op" class="btn-icon is-rt size-6" @click="add()" />
 
     <div v-for="(item, index) in list" :key="index" class="item">

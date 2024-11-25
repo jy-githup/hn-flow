@@ -15,6 +15,14 @@ export const getFlowListApi = async (data = {}) => {
   );
 };
 
+// 更新工作流 /api/flow-info/update
+export const updateFlowApi = async (data) => {
+  return requestClient.post<RouteRecordStringComponent[]>(
+    '/flow-info/update',
+    data,
+  );
+};
+
 // 删除工作流
 export const deleteFlowApi = async (id) => {
   return requestClient.get<RouteRecordStringComponent[]>(
@@ -22,9 +30,7 @@ export const deleteFlowApi = async (id) => {
   );
 };
 
-/**
- * 查询工作流详情
- */
+// 查询工作流详情
 export const getFlowInfoApi = async (flowId, flowLabel = '') => {
   return requestClient.post<RouteRecordStringComponent[]>('/flow-info/info', {
     label: flowLabel || 'hn_product',

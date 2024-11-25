@@ -6,7 +6,7 @@ import { merge } from 'lodash-es';
 
 import { module, service } from '#/cool';
 import { uuid } from '#/cool/utils';
-import { useBase } from '#/modules/base';
+import { useBase } from '#/components/base';
 
 import { pathJoin } from '../utils';
 

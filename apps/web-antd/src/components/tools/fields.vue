@@ -4,7 +4,7 @@ import type { FlowField } from '#/types/flow/index';
 import type { PropType } from 'vue';
 import { useModel } from 'vue';
 
-import { SvgFlowTextIcon } from '@vben/icons';
+import { SvgFlowTextIcon, SvgFlowDeleteIcon } from '@vben/icons';
 
 const props = defineProps({
   modelValue: {
@@ -50,7 +50,7 @@ function remove(index: number) {
       <span v-if="item.required" class="required">必填</span>
 
       <div class="op">
-        <cl-svg name="delete" @click.stop="remove(index)" />
+        <SvgFlowDeleteIcon class="size-6" @click.stop="remove(index)" />
       </div>
     </div>
   </div>
@@ -99,7 +99,7 @@ function remove(index: number) {
       padding: 0 5px;
       background-color: var(--el-fill-color-light);
 
-      .cl-svg {
+      .iconify {
         height: 15px;
         width: 15px;
         padding: 3px;

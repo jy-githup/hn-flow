@@ -3,10 +3,11 @@ import { reactive } from 'vue';
 
 import {
   SvgFlowRunIcon,
-  IxExport,
-  MynauiSend,
+  SvgFlowExportIcon,
+  SvgFlowPublishIcon,
   RiSaveLine,
-  UilSetting,
+  SvgFLowSetIcon,
+  SvgFlowSave2Icon,
 } from '@vben/icons';
 
 import dayjs from 'dayjs';
@@ -68,7 +69,7 @@ const publish = reactive({
         // 调用发布接口
 
         ElMessage.success('发布成功');
-        flow.get();
+        await flow.get();
         publish.loading = false;
         // await service.flow.info
         //   .release({
@@ -100,19 +101,19 @@ const publish = reactive({
     <div class="op">
       <div class="item" @click="save()">
         <el-tooltip content="保存" placement="top">
-          <RiSaveLine class="size-6" />
+          <SvgFlowSave2Icon class="size-5" />
         </el-tooltip>
       </div>
       <div class="item" @click="run()">
         <el-tooltip content="运行" placement="top">
-          <SvgFlowRunIcon class="size-6" />
+          <SvgFlowRunIcon class="size-5" />
         </el-tooltip>
       </div>
       <el-popover title="Title" trigger="click">
         <template #reference>
           <div class="item">
             <el-tooltip content="发布" placement="top">
-              <MynauiSend class="size-6" />
+              <SvgFlowPublishIcon class="size-5" />
             </el-tooltip>
           </div>
         </template>
@@ -128,12 +129,12 @@ const publish = reactive({
       <!--      @click="refs.nodeConfig?.open()"-->
       <div class="item">
         <el-tooltip content="配置" placement="top">
-          <UilSetting class="size-6" @click="refs.nodeConfig?.open()" />
+          <SvgFLowSetIcon class="size-5" @click="refs.nodeConfig?.open()" />
         </el-tooltip>
       </div>
       <div class="item" @click="exportFlow()">
         <el-tooltip content="导出" placement="top">
-          <IxExport class="size-6" />
+          <SvgFlowExportIcon class="size-5" />
         </el-tooltip>
       </div>
     </div>
@@ -186,7 +187,7 @@ const publish = reactive({
       background-color: var(--el-bg-color);
       border-radius: 8px;
 
-      .cl-svg {
+      .iconify {
         font-size: 22px;
         color: var(--el-color-info);
         outline: none;
@@ -195,7 +196,7 @@ const publish = reactive({
       &:hover {
         background-color: var(--el-fill-color-lighter);
 
-        .cl-svg {
+        .iconify {
           color: var(--el-text-color-primary);
         }
       }

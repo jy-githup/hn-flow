@@ -11,10 +11,10 @@ import {
 
 import { isEmpty } from 'lodash-es';
 
+import { getNodeInfoApi } from '#/api/flowManage';
 import { useCool } from '#/hooks/hooks/index';
 
 import ModelText from './model-text.vue';
-import {getNodeInfoApi} from "#/api/flowManage";
 
 const props = defineProps({
   modelValue: {
@@ -125,12 +125,12 @@ const list = computed(() => {
 });
 
 // 显示后
-function onShow() {
-  model.get();
+async function onShow() {
+  await model.get();
 }
 
-onMounted(() => {
-  model.get();
+onMounted(async () => {
+  await model.get();
 
   watch(
     () => value.value.options,

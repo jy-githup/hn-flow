@@ -1,6 +1,8 @@
 <script setup lang="ts" name="node-judge-form-if">
 import { onMounted, type PropType, useModel } from 'vue';
 
+import { SvgFlowAddIcon, SvgFlowDeleteIcon } from '@vben/icons';
+
 import ToolsVar from '#/components/tools/var.vue';
 
 const props = defineProps({
@@ -98,7 +100,7 @@ onMounted(() => {
 
 <template>
   <div class="form-if">
-    <cl-svg class="btn-icon is-rt" name="add" @click="add()" />
+    <SvgFlowAddIcon class="btn-icon is-rt size-6" @click="add()" />
 
     <div v-for="(item, index) in list" :key="index" class="item">
       <ToolsVar
@@ -131,14 +133,14 @@ onMounted(() => {
         placeholder="输入值"
       />
 
-      <cl-svg class="btn-icon" name="delete" @click="del(index)" />
+      <SvgFlowDeleteIcon class="btn-icon size-6" @click="del(index)" />
 
       <div class="operator">
         <el-button-group size="small">
           <el-button
             v-for="o in operator"
             :key="o.value"
-            :type="item.operator == o.value ? 'primary' : ''"
+            :type="item.operator === o.value ? 'primary' : ''"
             @click="item.operator = o.value"
           >
             {{ o.label }}

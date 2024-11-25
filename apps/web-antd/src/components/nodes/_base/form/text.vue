@@ -17,15 +17,9 @@ const list = computed(() => {
 
 <template>
   <div class="form-text">
-    <el-button
-      v-for="(item, index) in list"
-      :key="index"
-      size="small"
-      tag="p"
-      type="text"
-    >
+    <el-text v-for="(item, index) in list" :key="index" size="small" tag="p">
       {{ item }}
-    </el-button>
+    </el-text>
   </div>
 </template>
 

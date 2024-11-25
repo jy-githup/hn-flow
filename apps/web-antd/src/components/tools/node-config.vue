@@ -1,7 +1,7 @@
 <script setup lang="ts" name="tools-set-node-config">
 import { markRaw, ref } from 'vue';
 
-import { MynauiRefresh } from '@vben/icons';
+import { MynauiRefresh, SvgFlowDeleteIcon, SvgFLowSetIcon } from '@vben/icons';
 
 import { useCrud, useUpsert } from '@cool-vue/crud';
 import { isEmpty, keys } from 'lodash-es';
@@ -239,8 +239,11 @@ defineExpose({
                 <div class="head">
                   <span class="name">{{ item.name }}</span>
 
-                  <cl-svg name="delete" @click="Crud?.rowDelete(item)" />
-                  <cl-svg name="set" @click="Crud?.rowEdit(item)" />
+                  <SvgFlowDeleteIcon
+                    class="size-6"
+                    @click="Crud?.rowDelete(item)"
+                  />
+                  <SvgFLowSetIcon class="size-6" @click="Crud?.rowEdit(item)" />
                 </div>
 
                 <div class="content">
@@ -283,7 +286,7 @@ defineExpose({
   margin-bottom: 10px;
   cursor: pointer;
 
-  .cl-svg {
+  .iconify {
     font-size: 20px;
     color: var(--el-color-info);
   }
@@ -319,7 +322,7 @@ defineExpose({
       margin-right: auto;
     }
 
-    .cl-svg {
+    .iconify {
       padding: 3px;
       border-radius: 6px;
       font-size: 16px;

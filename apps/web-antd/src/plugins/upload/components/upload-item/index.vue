@@ -310,7 +310,7 @@ onMounted(() => {
   }
 
   &__icon {
-    .cl-svg {
+    .iconify {
       font-size: 100px;
       position: absolute;
       right: -24px;

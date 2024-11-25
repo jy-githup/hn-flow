@@ -1,9 +1,8 @@
 {
-  "title": "演示",
+  "title": "工作流管理",
   "antd": "Ant Design Vue",
   "vben": {
     "title": "项目",
-    "about": "关于",
     "document": "文档",
     "antdv": "Ant Design Vue 版本",
     "naive-ui": "Naive UI 版本",

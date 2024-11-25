@@ -1,17 +1,14 @@
-import { computed, reactive, toRaw } from 'vue';
+import { computed, reactive } from 'vue';
 
 import { isArray } from 'lodash-es';
 import { defineStore } from 'pinia';
 
-import { Dict } from '../types';
-import { deepFind } from '../utils';
-
-import { service } from '#/cool';
-import { deepTree } from '#/cool/utils';
+// import { Dict } from '#/dict/types';
+import { deepFind } from '#/dict/utils';
 
 const useDictStore = defineStore('dict', () => {
   // 对象数据
-  const data = reactive<Dict.Data>({});
+  const data = reactive<any>({});
 
   // 获取
   function get(name: string) {
@@ -28,7 +25,7 @@ const useDictStore = defineStore('dict', () => {
 
   // 刷新
   async function refresh(types?: string[]) {
-    return {}
+    return {};
   }
 
   return {

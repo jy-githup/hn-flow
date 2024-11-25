@@ -4,10 +4,10 @@ import type { FlowField } from '#/types/flow/index';
 import { computed, reactive, ref, useModel } from 'vue';
 import type { PropType } from 'vue';
 
-import { CarbonCLose } from '@vben/icons';
+import { SvgFlowCloseIcon, SvgFlowTIcon, SvgFlowVarIcon } from '@vben/icons';
 
-import { SearchOutlined } from '@ant-design/icons-vue';
-import { Button, Input, message, Modal, Tooltip, Popover } from 'ant-design-vue';
+import { Search } from '@element-plus/icons-vue';
+import { ElMessage } from 'element-plus';
 import { isEmpty } from 'lodash-es';
 
 import { useCool } from '#/hooks/hooks/index';
@@ -220,7 +220,7 @@ const input = reactive({
 
   save() {
     if (!input.value) {
-      return message.warning('请输入内容');
+      return ElMessage.warning('请输入内容');
     }
 
     value.value = input.value;
@@ -299,80 +299,94 @@ defineExpose({
 <template>
   <el-popover
     :ref="setRefs('popover')"
-    trigger="click"
-    width="220px"
+    :offset="5"
+    :popper-style="{
+      padding: '0',
+    }"
     placement="bottom-start"
     popper-class="cl-flow__popper"
-    :popper-style="{
-			padding: '0'
-		}"
-    :offset="5"
-    @show="onShow"
+    trigger="click"
+    width="220px"
     @hide="onHide"
+    @show="onShow"
   >
     <template #reference>
-      <div class="inner-item" v-if="showPicker">
-        <el-tooltip content="自定义输入" v-if="inputable">
-          <cl-svg
-            name="t"
-            class="btn-icon is-bg"
+      <div v-if="showPicker" class="inner-item">
+        <el-tooltip v-if="inputable" content="自定义输入">
+          <SvgFlowTIcon
             :style="{ margin: '0 5px 0 -5px' }"
+            class="btn-icon is-bg size-6"
             @click.stop="input.open"
           />
         </el-tooltip>
 
-        <span class="text" v-if="text">{{ text }}</span>
-        <span class="placeholder" v-else>{{ value ? "输入值" : "选择变量" }}</span>
+        <span v-if="text" class="text">{{ text }}</span>
+        <span v-else class="placeholder">{{
+          value ? '输入值' : '选择变量'
+        }}</span>
 
-        <cl-svg name="close" class="btn-icon close" @click.stop="clear" v-if="text" />
+        <SvgFlowCloseIcon
+          v-if="text"
+          class="btn-icon close size-6"
+          @click.stop="clear"
+        />
       </div>
 
-      <div class="tools-var__btn" :ref="setRefs('btn')" :style="{ position }" v-else></div>
+      <div
+        v-else
+        :ref="setRefs('btn')"
+        :style="{ position }"
+        class="tools-var__btn"
+      ></div>
     </template>
 
     <div class="tools-var">
       <div class="search">
-        <el-input v-model="keyWord" placeholder="搜索变量" :prefix-icon="Search" />
+        <el-input
+          v-model="keyWord"
+          :prefix-icon="Search"
+          placeholder="搜索变量"
+        />
       </div>
 
       <el-scrollbar max-height="500px">
         <div
-          class="list"
           :ref="setRefs('list')"
           :tabindex="0"
+          class="list"
           @keydown.stop.prevent="onKeyDown"
         >
-          <div class="group" v-for="(item, index) in list" :key="index">
+          <div v-for="(item, index) in list" :key="index" class="group">
             <p class="label">{{ item.label }}</p>
 
             <div
-              class="item"
               v-for="param in item.params"
               :key="param.field"
               :class="{
-								active: `${item.id}_${param.field}` == `${nodeId}_${field}`,
-								focus: focusKey == `${item.id}_${param.field}`
-							}"
+                active: `${item.id}_${param.field}` === `${nodeId}_${field}`,
+                focus: focusKey === `${item.id}_${param.field}`,
+              }"
+              class="item"
               @click="select(param, item)"
             >
-              <cl-svg class="icon" name="var" />
+              <SvgFlowVarIcon class="icon size-6" />
               <span class="value">{{ param.field }}</span>
               <span class="type">{{ param.type }}</span>
             </div>
           </div>
         </div>
 
-        <div class="empty" v-if="isEmpty(list)">未找到匹配项</div>
+        <div v-if="isEmpty(list)" class="empty">未找到匹配项</div>
       </el-scrollbar>
     </div>
 
     <!-- 自定义输入 -->
     <el-dialog v-model="input.visible" title="自定义输入">
       <el-input
-        type="textarea"
         v-model="input.value"
         :rows="20"
         placeholder="请输入"
+        type="textarea"
         @change="input.onChange"
       />
 

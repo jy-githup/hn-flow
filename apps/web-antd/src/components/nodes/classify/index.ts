@@ -5,7 +5,7 @@ import { SvgFlowClassifyIcon } from '@vben/icons';
 import FormInputParams from '../_base/form/input-params.vue';
 import FormText from '../_base/form/text.vue';
 
-// import FormModel from '../llm/form/model.vue';
+import FormModel from '../llm/form/model.vue';
 import FormClassify from './form/classify.vue';
 import component from './index.vue';
 
@@ -35,7 +35,7 @@ export default (): FlowNode => {
           label: '模型',
           prop: 'options.model',
           component: {
-            // vm: FormModel,
+            vm: FormModel,
           },
         },
         {

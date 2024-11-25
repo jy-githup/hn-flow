@@ -8,8 +8,8 @@ import { useRouter } from 'vue-router';
 import { Button, message } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import { deleteFlowApi, getFlowListApi } from '#/api/flowManage/index';
-import addFlow from '#/views/demos/antd/components/addFlow.vue';
+import { deleteFlowApi, getFlowListApi } from '#/api/flowManage';
+import editFlow from '#/views/flowManage/components/editFlow.vue';
 
 const router = useRouter();
 
@@ -51,8 +51,7 @@ const gridOptions: VxeGridProps<RowType> = {
     labelField: 'name',
   },
   columns: [
-    { type: 'checkbox', width: 50 },
-    { align: 'left', title: '名称', field: 'name', width: 120 },
+    { align: 'left', title: '名称', type: 'checkbox', field: 'name', width: 140 },
     { field: 'label', title: '标签', width: 100 },
     { field: 'status', title: '状态', width: 100 },
     { field: 'version', title: '版本', width: 80 },
@@ -110,11 +109,11 @@ const gridOptions: VxeGridProps<RowType> = {
 
 const [Grid, gridApi] = useVbenVxeGrid({ formOptions, gridOptions });
 
-const addFlowRef = ref<InstanceType<typeof addFlow>>();
+const editFlowRef = ref<InstanceType<typeof editFlow>>();
 
 const arrangeFlow = (row) => {
   router.push({
-    name: 'FlowManage/FlowInfo',
+    name: 'Flow/FlowInfo',
     query: {
       id: row.flowId,
       label: row.label,
@@ -139,7 +138,7 @@ const exportFlie = () => {};
   <div class="vp-raw h-full w-full overflow-hidden overflow-y-auto p-3.5">
     <Grid>
       <template #toolbar-tools>
-        <Button class="mr-2" type="primary" @click="addFlowRef.openModol()">
+        <Button class="mr-2" type="primary" @click="editFlowRef.openModol()">
           创建
         </Button>
         <!--        <Button class="mr-2" danger type="primary">-->
@@ -149,13 +148,13 @@ const exportFlie = () => {};
         <Button class="mr-2" type="dashed" @click="exportFlie"> 导入 </Button>
       </template>
       <template #action="{ row }">
-        <Button color="red" type="link">编辑</Button>
+        <Button color="red" type="link" @click="editFlowRef.openModol(row)">编辑</Button>
         <Button danger type="link" @click="deleteFlow(row)">删除</Button>
         <Button type="link" @click="arrangeFlow(row)">编排</Button>
         <Button type="link">日志</Button>
       </template>
     </Grid>
 
-    <addFlow ref="addFlowRef" @confirm="gridApi.reload()" />
+    <editFlow ref="editFlowRef" @confirm="gridApi.reload()" />
   </div>
 </template>

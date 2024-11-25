@@ -102,7 +102,6 @@ function mouseup(e: MouseEvent) {
       class="node-add__btn"
       @click="visible = !visible"
     >
-      <!--    <cl-svg name="add2"></cl-svg>-->
       <ZondiconsAddSolid class="size-15" color="#1677ff" />
     </div>
     <div
@@ -126,7 +125,7 @@ function mouseup(e: MouseEvent) {
               @mousedown="(e) => mousedown(e, b)"
             >
               <div
-                :style="`background: ${b.bgColor || 'rgb(64, 158, 255)'};`"
+                :style="`background: ${b.color || 'rgb(64, 158, 255)'};`"
                 class="iconCompontentBox"
               >
                 <component

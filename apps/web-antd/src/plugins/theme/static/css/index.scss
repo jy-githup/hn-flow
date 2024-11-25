@@ -157,7 +157,7 @@ body.theme {
 							background-color: #fff;
 						}
 
-						.cl-svg,
+						.iconify,
 						span {
 							color: var(--color-primary);
 							position: relative;
@@ -185,7 +185,7 @@ body.theme {
 					&.is-active {
 						background-color: #fff !important;
 
-						.cl-svg,
+						.iconify,
 						span {
 							color: var(--color-primary);
 						}

@@ -3,9 +3,10 @@ import type { FlowNode } from '#/types/flow/index';
 
 import { computed, type PropType } from 'vue';
 
-// import ModelText from '../llm/form/model-text.vue';
+import ToolsHandle from '#/components/tools/handle.vue';
 
-// import ToolsHandle from '#/components/tools/handle.vue';
+import ModelText from '../llm/form/model-text.vue';
+
 const props = defineProps({
   node: {
     type: Object as PropType<FlowNode>,
@@ -31,20 +32,19 @@ const list = computed(() => {
 <template>
   <div class="node-classify">
     <div v-if="!focus" class="model">
-      <!--      <ModelText :data="node.data?.options?.model" />-->
+      <ModelText :data="node.data?.options?.model" />
     </div>
-
     <div v-for="(item, index) in list" :key="index" class="item">
       <span class="content">{{ item.content || '未填写内容' }}</span>
 
-      <!--      <ToolsHandle-->
-      <!--        :id="item.value"-->
-      <!--        :node-id="node.id"-->
-      <!--        :position="{-->
-      <!--          right: '-24px',-->
-      <!--        }"-->
-      <!--        type="source"-->
-      <!--      />-->
+      <ToolsHandle
+        :id="item.value"
+        :node-id="node.id"
+        :position="{
+          right: '-24px',
+        }"
+        type="source"
+      />
     </div>
   </div>
 </template>

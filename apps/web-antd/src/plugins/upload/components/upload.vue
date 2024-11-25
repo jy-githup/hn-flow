@@ -15,7 +15,7 @@ import VueDraggable from 'vuedraggable';
 
 import { isPromise, uuid } from '#/cool/utils';
 import { useCool } from '#/hooks/hooks/index';
-import { useBase } from '#/modules/base';
+import { useBase } from '#/components/base';
 
 import { useUpload } from '../hooks';
 import { getType, getUrls } from '../utils';

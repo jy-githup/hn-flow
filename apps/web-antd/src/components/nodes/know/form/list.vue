@@ -2,6 +2,8 @@
 import type { PropType } from 'vue';
 import { computed, onMounted, ref, useModel } from 'vue';
 
+import { SvgFlowKnowIcon, SvgFlowDeleteIcon } from '@vben/icons';
+
 import { useCool } from '#/cool/hooks/index';
 
 const props = defineProps({
@@ -49,13 +51,11 @@ onMounted(() => {
 <template>
   <div class="list">
     <div v-for="(item, index) in list" :key="index" class="item">
-      <cl-svg class="icon" name="know" />
+      <SvgFlowKnowIcon class="icon size-6" />
       <span class="name">{{ item.name }}</span>
-
-      <cl-svg
+      <SvgFlowDeleteIcon
         v-if="deletable"
-        class="btn-icon del"
-        name="delete"
+        class="btn-icon del size-6"
         @click="
           () => {
             ids.splice(index, 1);
