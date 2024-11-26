@@ -1,4 +1,4 @@
-import type { FlowNode } from '#/types/flow/index';
+import type { FlowNode } from '/$/flow/types';
 
 import { SvgFlowLlmIcon } from '@vben/icons';
 
@@ -14,9 +14,8 @@ export default (): FlowNode => {
     group: 'AI',
     label: 'LLM',
     description: '调用大语言模型回答问题',
-    bgColor: '#409eff',
-    color: '#409eff',
     icon: SvgFlowLlmIcon,
+    color: '#409eff',
     component,
     isDisableDrag: true, // 是否允许拖拽（部分组件跟拖拽事件冲突，需禁用。例：伪富文本dom）
     form: {

@@ -5,7 +5,6 @@ import { type PropType } from 'vue';
 
 import ModelText from './form/model-text.vue';
 
-// eslint-disable-next-line no-unused-vars,unused-imports/no-unused-vars
 const props = defineProps({
   node: {
     type: Object as PropType<FlowNode>,

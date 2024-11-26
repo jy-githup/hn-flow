@@ -9,6 +9,7 @@ import {
   watch,
 } from 'vue';
 
+import { ArrowDown, Check, Search } from '@element-plus/icons-vue';
 import { isEmpty } from 'lodash-es';
 
 import { getNodeInfoApi } from '#/api/flowManage';
@@ -25,7 +26,7 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue']);
 
-const { refs, setRefs, service } = useCool();
+const { refs, setRefs } = useCool();
 
 // 绑定值
 const value = useModel(props, 'modelValue');
@@ -37,58 +38,59 @@ const keyWord = ref('');
 const model = reactive({
   list: [] as LLMItem[],
 
-  async get() {
-    const res = await getNodeInfoApi('llm');
-    if (res.data) {
-      model.list = (res.data as Eps.FlowConfigEntity[]).map((e) => {
-        const d: LLMItem = {
-          options: [],
-          title: e.name!,
-          type: e.type!,
-          id: e.id!,
-          select: [],
-        };
+  get() {
+    getNodeInfoApi('llm').then((res) => {
+      if (res.data) {
+        model.list = (res.data as Eps.FlowConfigEntity[]).map((e) => {
+          const d: LLMItem = {
+            options: [],
+            title: e.name!,
+            type: e.type!,
+            id: e.id!,
+            select: [],
+          };
 
-        (e.options?.options || []).forEach((e: LLMOption) => {
-          if (e.field === 'model') {
-            d.select = e.select!;
-          } else {
-            d.options.push(e);
-          }
+          (e.options?.options || []).forEach((e: LLMOption) => {
+            if (e.field == 'model') {
+              d.select = e.select!;
+            } else {
+              d.options.push(e);
+            }
+          });
+
+          return d;
         });
 
-        return d;
-      });
+        // 模型名称
+        let name = value.value?.params?.model;
 
-      // 模型名称
-      let name = value.value?.params?.model;
-
-      // 已选中的
-      let item = model.list.find((e) => e.select.includes(name));
-
-      if (item) {
-        item.options.forEach((a) => {
-          const d = value.value.options.find((b) => a.field === b.field);
-
-          if (d) {
-            // 保留之前编辑的数据，其他配置重新加载
-            a.value = d.value;
-            a.enable = d.enable;
-          }
-        });
-      } else {
-        // 未选中，默认第一个
-        item = model.list[0];
+        // 已选中的
+        let item = model.list.find((e) => e.select.includes(name));
 
         if (item) {
-          name = item.select[0];
+          item.options.forEach((a) => {
+            const d = value.value.options.find((b) => a.field == b.field);
+
+            if (d) {
+              // 保留之前编辑的数据，其他配置重新加载
+              a.value = d.value;
+              a.enable = d.enable;
+            }
+          });
+        } else {
+          // 未选中，默认第一个
+          item = model.list[0];
+
+          if (item) {
+            name = item.select[0];
+          }
+        }
+
+        if (item) {
+          model.select(name, item);
         }
       }
-
-      if (item) {
-        model.select(name, item);
-      }
-    }
+    });
   },
 
   select(name: string, item: LLMItem) {
@@ -125,12 +127,12 @@ const list = computed(() => {
 });
 
 // 显示后
-async function onShow() {
-  await model.get();
+function onShow() {
+  model.get();
 }
 
-onMounted(async () => {
-  await model.get();
+onMounted(() => {
+  model.get();
 
   watch(
     () => value.value.options,
@@ -187,7 +189,7 @@ onMounted(async () => {
               <span v-else class="placeholder">选择模型</span>
 
               <el-icon class="arrow">
-                <arrow-down />
+                <ArrowDown />
               </el-icon>
             </div>
           </template>
@@ -209,7 +211,7 @@ onMounted(async () => {
                 v-for="m in item.select"
                 :key="m"
                 :class="{
-                  'is-check': value.params?.model === m,
+                  'is-check': value.params?.model == m,
                 }"
                 class="item"
                 @click="model.select(m, item)"
@@ -217,7 +219,7 @@ onMounted(async () => {
                 <span>{{ m }}</span>
 
                 <el-icon class="check">
-                  <check />
+                  <Check />
                 </el-icon>
               </div>
             </div>
@@ -236,7 +238,7 @@ onMounted(async () => {
           <el-switch v-model="item.enable" size="small" />
 
           <el-slider
-            v-if="item.type === 'number'"
+            v-if="item.type == 'number'"
             v-model="item.value"
             :max="item.max || 1"
             :min="item.min || 0"
@@ -248,7 +250,7 @@ onMounted(async () => {
           />
 
           <el-input
-            v-else-if="item.type === 'string'"
+            v-else-if="item.type == 'string'"
             v-model="item.value"
             class="string"
             clearable
@@ -257,7 +259,7 @@ onMounted(async () => {
           />
 
           <el-switch
-            v-if="item.type === 'boolean'"
+            v-if="item.type == 'boolean'"
             v-model="item.value"
             class="boolean"
           />

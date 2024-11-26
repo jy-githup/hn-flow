@@ -4,19 +4,18 @@ import type { FlowNode, FlowNodeResult } from '#/types/flow/index';
 import { computed, nextTick, onMounted, onUnmounted, reactive } from 'vue';
 
 import {
-  SvgFlowMoreIcon,
   NoniconsLoading,
   SvgFlowDeleteIcon,
+  SvgFlowMoreIcon,
   SvgFlowRunIcon,
 } from '@vben/icons';
 
+import CardForm from '#/components/tools/card/form.vue';
+import ToolsHandle from '#/components/tools/handle.vue';
 import { useCool } from '#/hooks/hooks/index';
 import { useFlow } from '#/hooks/hooks/userFlow';
-
-import CardForm from './card/form.vue';
-import ToolsHandle from './handle.vue';
 // import ToolsIcon from './icon.vue';
-import ToolsMore from './more.vue';
+import ToolsMore from '#/components/tools/more.vue';
 
 const props = defineProps({
   // eslint-disable-next-line vue/require-default-prop
@@ -215,6 +214,7 @@ const result = reactive({
 // 打开表单
 async function openForm(data: FlowNode) {
   nextTick(() => {
+    console.log('打开节点》〉》〉》〉》openForm', data);
     if (data && data.id === props.nodeId) {
       refs.form?.open();
     }

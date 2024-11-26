@@ -3,7 +3,7 @@ import type { FlowField } from '#/types/flow/index';
 
 import { computed, type PropType, useModel } from 'vue';
 
-import { IonAdd, SvgFlowDeleteIcon, SiInfoFill } from '@vben/icons';
+import { IonAdd, SiInfoFill, SvgFlowDeleteIcon } from '@vben/icons';
 
 import { isEmpty } from 'lodash-es';
 
@@ -37,7 +37,7 @@ const list = useModel(props, 'modelValue');
 // 是否有相同命名
 const errFields = computed(() => {
   const arr: string[] = [];
-
+  // if (!Array.isArray(list.value)) return arr;
   list.value.forEach((a, i) => {
     const n = list.value.findIndex((b) => b.field === a.field);
 

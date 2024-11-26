@@ -6,12 +6,13 @@ import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
 import { setFocus, useForm } from '@cool-vue/crud';
 import { assign, cloneDeep } from 'lodash-es';
 
-import { ZondiconsAddSolid } from '@vben/icons';
-
 import { useCool } from '#/hooks/hooks/index';
 import { useFlow } from '#/hooks/hooks/userFlow';
 
+import ToolsIcon from './../icon.vue';
 import ToolsNodes from './../nodes.vue';
+
+import { SvgFlowAddIcon } from '@vben/icons';
 
 const { mitt } = useCool();
 const Form = useForm();
@@ -32,8 +33,8 @@ const nextNodes = computed(() => {
   return list.map((h) => {
     const edge = flow.edges.find(
       (e) =>
-        e.source === flow.node?.id &&
-        (h.value ? e.sourceHandle === h.value : true),
+        e.source == flow.node?.id &&
+        (h.value ? e.sourceHandle == h.value : true),
     );
 
     return {
@@ -54,6 +55,7 @@ function open() {
 
   nextTick(() => {
     const { focus, items } = flow.node?.form || {};
+
     Form.value?.open(
       {
         props: {
@@ -127,15 +129,14 @@ defineExpose({
 </script>
 
 <template>
-  <!--     v-if="visible && flow.node" -->
-  <div class="tools-card-form nodrag">
+  <div v-if="visible && flow.node" class="tools-card-form nodrag">
     <div class="form">
       <cl-form ref="Form" inner>
         <template #slot-next>
           <div class="next-step">
-            <el-button size="small" type="text">
+            <el-text size="small" type="info">
               添加此工作流程中的下一个节点
-            </el-button>
+            </el-text>
 
             <div class="link">
               <div
@@ -146,21 +147,25 @@ defineExpose({
                 }"
                 class="item"
               >
-                <div v-if="index === 0" class="a">
-                  <component is="flow.node?.icon" :color="flow.node?.color" />
+                <div v-if="index == 0" class="a">
+                  <ToolsIcon
+                    :color="flow.node?.color"
+                    :name="flow.node?.icon"
+                  />
                 </div>
 
                 <div v-if="item.node" class="b" @click="next(item.node)">
-                  <component is="flow.node?.icon" :color="flow.node?.color" />
-                  <el-button size="small" type="text">
-                    {{ item.node?.label }}
-                  </el-button>
+                  <ToolsIcon
+                    :color="item.node?.color"
+                    :name="item.node?.icon"
+                  />
+                  <el-text size="small">{{ item.node?.label }}</el-text>
                 </div>
 
                 <ToolsNodes v-else :handle="item.value" :node="flow.node">
                   <div class="b">
-                    <ZondiconsAddSolid class="size-6" />
-                    <el-button size="small" type="text">选择下一个节点</el-button>
+                    <SvgFlowAddIcon class="size-6" />
+                    <el-text size="small">选择下一个节点</el-text>
                   </div>
                 </ToolsNodes>
 

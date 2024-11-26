@@ -257,7 +257,7 @@ onUnmounted(() => {
 
 <template>
   <div class="form-content">
-    <SvgFlowAddIcon class="btn-icon is-rt size-6" name="add" @click="add()" />
+    <SvgFlowAddIcon class="btn-icon is-rt size-6" @click="add()" />
 
     <Draggable
       v-model="list"
@@ -276,7 +276,7 @@ onUnmounted(() => {
           <div class="head">
             <el-select
               v-model="item.role"
-              :disabled="item.role === 'system'"
+              :disabled="item.role == 'system'"
               class="role"
               popper-class="cl-flow__popper"
               size="small"
@@ -291,9 +291,8 @@ onUnmounted(() => {
 
             <div class="op">
               <SvgFlowDeleteIcon
-                v-if="item.role !== 'system'"
+                v-if="item.role != 'system'"
                 class="btn-icon size-6"
-                name="delete"
                 @click="remove(index)"
               />
             </div>

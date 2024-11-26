@@ -5,20 +5,6 @@ declare interface LLMMessage {
   [key: string]: any;
 }
 
-declare interface LLMOption {
-  field: string;
-  value?: any;
-  type: 'boolean' | 'number' | 'string';
-  title: string;
-  default?: any;
-  max?: number;
-  min?: number;
-  supports?: string[];
-  select?: string[];
-  status?: boolean;
-  [key: string]: any;
-}
-
 declare interface LLMData {
   supplier: string;
   options: LLMOption[];
@@ -35,4 +21,18 @@ declare interface LLMItem {
   title: string;
   type: string;
   select: string[];
+}
+
+declare interface LLMOption {
+  field: string;
+  value?: any;
+  type: 'boolean' | 'number' | 'string';
+  title: string;
+  default?: any;
+  max?: number;
+  min?: number;
+  supports?: string[];
+  select?: string[];
+  status?: boolean;
+  [key: string]: any;
 }
