@@ -26,6 +26,15 @@ const SvgFlowRunIcon = createIconifyIcon('svg:run');
 const SvgFlowDeleteIcon = createIconifyIcon('svg:delete');
 const SvgFlowAddIcon = createIconifyIcon('svg:add');
 const SvgFlowMoreIcon = createIconifyIcon('svg:more');
+const SvgFlowParseIcon = createIconifyIcon('svg:parse');
+const SvgFlowTIcon = createIconifyIcon('svg:t');
+const SvgFlowCloseIcon = createIconifyIcon('svg:close');
+const SvgFlowVarIcon = createIconifyIcon('svg:var');
+const SvgFLowSetIcon = createIconifyIcon('svg:set');
+const SvgFlowIconDiscoverIcon = createIconifyIcon('svg:icon-discover');
+const SvgFlowSave2Icon = createIconifyIcon('svg:save2');
+const SvgFlowPublishIcon = createIconifyIcon('svg:publish');
+const SvgFlowExportIcon = createIconifyIcon('svg:export');
 
 export {
   SvgAntdvLogoIcon,
@@ -40,15 +49,24 @@ export {
   SvgFlowAddIcon,
   SvgFlowBaiduIcon,
   SvgFlowClassifyIcon,
+  SvgFlowCloseIcon,
   SvgFlowCodeIcon,
   SvgFlowDeleteIcon,
   SvgFlowEndIcon,
+  SvgFlowExportIcon,
+  SvgFlowIconDiscoverIcon,
   SvgFlowJudgeIcon,
   SvgFlowKnowIcon,
   SvgFlowLlmIcon,
   SvgFlowMoreIcon,
+  SvgFlowParseIcon,
+  SvgFlowPublishIcon,
   SvgFlowRunIcon,
+  SvgFlowSave2Icon,
+  SvgFLowSetIcon,
   SvgFlowStartIcon,
   SvgFlowTextIcon,
+  SvgFlowTIcon,
   SvgFlowVariableIcon,
+  SvgFlowVarIcon,
 };
