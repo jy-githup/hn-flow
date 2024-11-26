@@ -24,6 +24,7 @@ export default (): FlowNode => {
           label: '输入变量',
           prop: 'inputParams',
           component: {
+            name: 'ClassifyFormInputParams',
             vm: FormInputParams,
             props: {
               editField: false,
@@ -35,6 +36,7 @@ export default (): FlowNode => {
           label: '模型',
           prop: 'options.model',
           component: {
+            name: 'ClassifyFormModel',
             vm: FormModel,
           },
         },
@@ -42,6 +44,7 @@ export default (): FlowNode => {
           label: '分类',
           prop: 'options.types',
           component: {
+            name: 'ClassifyFormClassify',
             vm: FormClassify,
           },
         },
@@ -65,6 +68,7 @@ export default (): FlowNode => {
         {
           label: '输出变量',
           component: {
+            name: 'ClassifyFormText',
             vm: FormText,
             props: {
               text: ['content<string> 内容', 'index<number> 分类索引'],

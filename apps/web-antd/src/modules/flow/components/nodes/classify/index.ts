@@ -30,6 +30,7 @@ export default (): FlowNode => {
           label: '模型',
           prop: 'options.model',
           component: {
+            name: 'classifyFormModel',
             vm: FormModel,
           },
         },

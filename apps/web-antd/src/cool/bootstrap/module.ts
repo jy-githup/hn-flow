@@ -74,7 +74,6 @@ for (const i in files) {
 
 // 创建
 export function createModule(app: App) {
-  console.log(module.list);
   // 排序
   module.list.forEach((e) => {
     const d = isFunction(e.value) ? e.value(app) : e.value;

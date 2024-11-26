@@ -24,6 +24,7 @@ export default (): FlowNode => {
           label: '输入变量',
           prop: 'inputParams',
           component: {
+            name: 'CodeFormInputParams',
             vm: FormInputParams,
           },
         },
@@ -31,6 +32,7 @@ export default (): FlowNode => {
           label: '代码编辑',
           prop: 'options.code',
           component: {
+            name: 'CodeFormEditor',
             vm: Editor,
           },
         },
@@ -38,6 +40,7 @@ export default (): FlowNode => {
           label: '输出变量',
           prop: 'outputParams',
           component: {
+            name: 'CodeFormOutputParams',
             vm: FormOutputParams,
           },
         },

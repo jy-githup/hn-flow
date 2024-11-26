@@ -61,7 +61,6 @@ function mousedown(e: MouseEvent, node: FlowNode) {
 }
 
 function mousemove(e: MouseEvent) {
-  console.log('mousemove');
   if (drag.el) {
     if (!drag.el.className.includes('is-drag')) {
       drag.el.className += ' is-drag';

@@ -24,6 +24,7 @@ export default (): FlowNode => {
           label: '输入变量',
           prop: 'inputParams',
           component: {
+            name: 'KnowFormInputParams',
             vm: FormInputParams,
             props: {
               editField: false,
@@ -35,6 +36,7 @@ export default (): FlowNode => {
           label: '选择知识库',
           prop: 'options.knowIds',
           component: {
+            name: 'KnowFormSelect',
             vm: FormSelect,
           },
         },
@@ -52,6 +54,7 @@ export default (): FlowNode => {
         {
           label: '输出变量',
           component: {
+            name: 'KnowFormText',
             vm: FormText,
             props: {
               text: ['documents<object[]> 文档列表', 'text<string> 文档内容'],

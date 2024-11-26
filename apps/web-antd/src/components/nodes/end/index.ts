@@ -20,6 +20,7 @@ export default (): FlowNode => {
           label: '输出变量',
           prop: 'outputParams',
           component: {
+            name: 'EndFormInputParams',
             vm: FormInputParams,
             props: {
               field: 'res',

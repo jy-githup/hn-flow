@@ -1,4 +1,4 @@
-import type { FlowNode } from '/$/flow/types';
+import type { FlowNode } from '#/types/flow/index';
 
 import { SvgFlowLlmIcon } from '@vben/icons';
 
@@ -24,6 +24,7 @@ export default (): FlowNode => {
           label: '输入变量',
           prop: 'inputParams',
           component: {
+            name: 'LLmFormInputParams',
             vm: FormInputParams,
             props: {
               field: 'input',
@@ -34,6 +35,7 @@ export default (): FlowNode => {
           label: '模型',
           prop: 'options.model',
           component: {
+            name: 'LLmFormModel',
             vm: FormModel,
           },
         },
@@ -41,6 +43,7 @@ export default (): FlowNode => {
           label: '消息',
           prop: 'options.messages',
           component: {
+            name: 'LLmFormMessage',
             vm: FormMessage,
           },
         },
@@ -48,6 +51,7 @@ export default (): FlowNode => {
           prop: 'options.history',
           span: 12,
           component: {
+            name: 'LLmFormInputNumber',
             vm: FormInputNumber,
             props: {
               prefix: '保存',
@@ -58,6 +62,7 @@ export default (): FlowNode => {
         {
           label: '输出变量',
           component: {
+            name: 'LLmFormText',
             vm: FormText,
             props: {
               text: ['text<string> 回复内容'],

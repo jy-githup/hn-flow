@@ -50,7 +50,6 @@ export const useFlow = () => {
   const store = defineStore(`flow-${vueFlow.id}`, () => {
     // 所有节点
     const nodes = computed(() => {
-      console.log('vueFlow.nodes.value', vueFlow.nodes.value);
       return vueFlow.nodes.value as FlowNode[];
     });
 
@@ -590,7 +589,6 @@ export const useFlow = () => {
 
     // 获取
     async function get(flowId?: number, flowLabel?: string) {
-      console.log(`传递的id：：：：：：${flowId}`);
       await req;
       const res = await getFlowInfoApi(flowId, flowLabel);
       if (res.data) {

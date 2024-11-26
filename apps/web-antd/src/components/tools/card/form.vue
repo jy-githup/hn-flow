@@ -3,6 +3,8 @@ import type { FlowNode } from '#/types/flow/index';
 
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
 
+import { SvgFlowAddIcon } from '@vben/icons';
+
 import { setFocus, useForm } from '@cool-vue/crud';
 import { assign, cloneDeep } from 'lodash-es';
 
@@ -11,8 +13,6 @@ import { useFlow } from '#/hooks/hooks/userFlow';
 
 import ToolsIcon from './../icon.vue';
 import ToolsNodes from './../nodes.vue';
-
-import { SvgFlowAddIcon } from '@vben/icons';
 
 const { mitt } = useCool();
 const Form = useForm();
@@ -55,7 +55,6 @@ function open() {
 
   nextTick(() => {
     const { focus, items } = flow.node?.form || {};
-
     Form.value?.open(
       {
         props: {

@@ -47,7 +47,7 @@ export const getNodeInfoApi = async (nodeId) => {
   return requestClient.get<RouteRecordStringComponent[]>(
     `/flow/config/getByNode?node=${nodeId}`,
     {
-      baseURL: '/admin',
+      baseURL: '/huiwsper/admin',
     },
   );
 };

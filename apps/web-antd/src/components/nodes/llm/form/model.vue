@@ -24,6 +24,7 @@ const props = defineProps({
   },
 });
 
+// eslint-disable-next-line no-unused-vars
 const emit = defineEmits(['update:modelValue']);
 
 const { refs, setRefs } = useCool();
@@ -51,7 +52,7 @@ const model = reactive({
           };
 
           (e.options?.options || []).forEach((e: LLMOption) => {
-            if (e.field == 'model') {
+            if (e.field === 'model') {
               d.select = e.select!;
             } else {
               d.options.push(e);
@@ -69,7 +70,7 @@ const model = reactive({
 
         if (item) {
           item.options.forEach((a) => {
-            const d = value.value.options.find((b) => a.field == b.field);
+            const d = value.value.options.find((b) => a.field === b.field);
 
             if (d) {
               // 保留之前编辑的数据，其他配置重新加载
@@ -211,7 +212,7 @@ onMounted(() => {
                 v-for="m in item.select"
                 :key="m"
                 :class="{
-                  'is-check': value.params?.model == m,
+                  'is-check': value.params?.model === m,
                 }"
                 class="item"
                 @click="model.select(m, item)"
@@ -238,7 +239,7 @@ onMounted(() => {
           <el-switch v-model="item.enable" size="small" />
 
           <el-slider
-            v-if="item.type == 'number'"
+            v-if="item.type === 'number'"
             v-model="item.value"
             :max="item.max || 1"
             :min="item.min || 0"
@@ -250,7 +251,7 @@ onMounted(() => {
           />
 
           <el-input
-            v-else-if="item.type == 'string'"
+            v-else-if="item.type === 'string'"
             v-model="item.value"
             class="string"
             clearable
@@ -259,7 +260,7 @@ onMounted(() => {
           />
 
           <el-switch
-            v-if="item.type == 'boolean'"
+            v-if="item.type === 'boolean'"
             v-model="item.value"
             class="boolean"
           />

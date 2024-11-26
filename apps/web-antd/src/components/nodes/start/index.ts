@@ -20,6 +20,7 @@ const config = (): FlowNode => {
           label: '输入字段',
           prop: 'inputParams',
           component: {
+            name: 'StartFormFields',
             vm: FormFields,
           },
         },

@@ -31,20 +31,20 @@ export default defineConfig(async () => {
     vite: {
       server: {
         proxy: {
-          '/admin': {
-            changeOrigin: true,
-            rewrite: (path) => path.replace(/^\/admin/, ''),
-            // mock代理目标地址
-            // target: 'http://localhost:5320/api',
-            target: 'http://81.68.224.107:7062/admin',
-            ws: true,
-          },
           '/api': {
             changeOrigin: true,
             rewrite: (path) => path.replace(/^\/api/, ''),
             // mock代理目标地址
             // target: 'http://localhost:5320/api',
             target: 'https://hpay.jyoou.com/huiwsper/api',
+            ws: true,
+          },
+          '/huiwsper/admin': {
+            changeOrigin: true,
+            rewrite: (path) => path.replace(/^\/huiwsper\/admin/, ''),
+            // mock代理目标地址
+            // target: 'http://localhost:5320/api',
+            target: 'https://hpay.jyoou.com/huiwsper/admin',
             ws: true,
           },
         },

@@ -22,6 +22,7 @@ export default (): FlowNode => {
           label: '满足',
           prop: 'options.IF',
           component: {
+            name: 'JudgeFormIf',
             vm: FormIf,
           },
         },

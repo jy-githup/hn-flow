@@ -214,7 +214,6 @@ const result = reactive({
 // 打开表单
 async function openForm(data: FlowNode) {
   nextTick(() => {
-    console.log('打开节点》〉》〉》〉》openForm', data);
     if (data && data.id === props.nodeId) {
       refs.form?.open();
     }
